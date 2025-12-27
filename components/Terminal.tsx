@@ -164,20 +164,30 @@ const Terminal: React.FC<TerminalProps> = ({
 
     switch (cmd) {
       case 'help':
-        responses = [
-          lang === 'ru' ? 'Доступные команды:' : 'Available commands:',
-          '  lang [ru|en]- Переключение языка / Change language',
-          '  theme [t]   - hacker, paper, default',
-          '  vim [file]  - Edit/view a file',
-          '  ls          - List files',
-          '  cat [file]  - Read file',
-          '  history     - Show command history',
-          '  print-pdf   - Generate minimalist resume PDF',
-          '  matrix      - Toggle Matrix effect',
-          '  crt         - Toggle CRT effect',
-          '  clear       - Clear terminal',
-          '  exit        - Close terminal'
-        ];
+        if (isMobile) {
+          responses = [
+            lang === 'ru' ? 'Команды:' : 'Commands:',
+            'lang ru|en  theme dark|lite',
+            'vim [file]  cat [file]  ls',
+            'matrix  crt  clear  exit',
+            'projects  stack  socials'
+          ];
+        } else {
+          responses = [
+            lang === 'ru' ? 'Доступные команды:' : 'Available commands:',
+            '  lang [ru|en]- Переключение языка / Change language',
+            '  theme [t]   - hacker, paper, default',
+            '  vim [file]  - Edit/view a file',
+            '  ls          - List files',
+            '  cat [file]  - Read file',
+            '  history     - Show command history',
+            '  print-pdf   - Generate minimalist resume PDF',
+            '  matrix      - Toggle Matrix effect',
+            '  crt         - Toggle CRT effect',
+            '  clear       - Clear terminal',
+            '  exit        - Close terminal'
+          ];
+        }
         break;
 
       case 'print-pdf':
@@ -239,17 +249,31 @@ const Terminal: React.FC<TerminalProps> = ({
         break;
 
       case 'projects':
-        responses = [
-          lang === 'ru' ? '=== ПРОЕКТЫ ===' : '=== PROJECTS ===',
-          ...PROJECTS.map(p => `[${p.id}] ${p.title} - ${p.description[lang]}`)
-        ];
+        if (isMobile) {
+          responses = [
+            lang === 'ru' ? '=== ПРОЕКТЫ ===' : '=== PROJECTS ===',
+            ...PROJECTS.map(p => `${p.title}`)
+          ];
+        } else {
+          responses = [
+            lang === 'ru' ? '=== ПРОЕКТЫ ===' : '=== PROJECTS ===',
+            ...PROJECTS.map(p => `[${p.id}] ${p.title} - ${p.description[lang]}`)
+          ];
+        }
         break;
 
       case 'stack':
-        responses = [
-          lang === 'ru' ? '=== ТЕХНОЛОГИИ ===' : '=== TECH STACK ===',
-          ...TECH_STACK.map(tech => `[${tech.category}] ${tech.name} - ${tech.description}`)
-        ];
+        if (isMobile) {
+          responses = [
+            lang === 'ru' ? '=== ТЕХНОЛОГИИ ===' : '=== TECH STACK ===',
+            ...TECH_STACK.map(tech => `${tech.name}`)
+          ];
+        } else {
+          responses = [
+            lang === 'ru' ? '=== ТЕХНОЛОГИИ ===' : '=== TECH STACK ===',
+            ...TECH_STACK.map(tech => `[${tech.category}] ${tech.name} - ${tech.description}`)
+          ];
+        }
         break;
 
       case 'socials':
@@ -349,31 +373,41 @@ const Terminal: React.FC<TerminalProps> = ({
 
       switch (command) {
         case 'help':
-          responses = [
-            lang === 'ru' ? 'Доступные команды:' : 'Available commands:',
-            '  lang [ru|en]- Переключение языка / Change language',
-            '  theme [t]   - hacker, paper, default',
-            '  vim [file]  - Edit/view a file',
-            '  ls          - List files',
-            '  cat [file]  - Read file',
-            '  history     - Show command history',
-            '  print-pdf   - Generate minimalist resume PDF',
-            '  matrix      - Toggle Matrix effect',
-            '  crt         - Toggle CRT effect',
-            '  clear       - Clear terminal',
-            '  exit        - Close terminal'
-          ];
+          if (isMobile) {
+            responses = [
+              lang === 'ru' ? 'Команды:' : 'Commands:',
+              'lang ru|en  theme dark|lite',
+              'vim [file]  cat [file]  ls',
+              'matrix  crt  clear  exit',
+              'projects  stack  socials'
+            ];
+          } else {
+            responses = [
+              lang === 'ru' ? 'Доступные команды:' : 'Available commands:',
+              '  lang [ru|en]- Переключение языка / Change language',
+              '  theme [t]   - hacker, paper, default',
+              '  vim [file]  - Edit/view a file',
+              '  ls          - List files',
+              '  cat [file]  - Read file',
+              '  history     - Show command history',
+              '  print-pdf   - Generate minimalist resume PDF',
+              '  matrix      - Toggle Matrix effect',
+              '  crt         - Toggle CRT effect',
+              '  clear       - Clear terminal',
+              '  exit        - Close terminal'
+            ];
+          }
           break;
         case 'projects':
           responses = [
             lang === 'ru' ? '=== ПРОЕКТЫ ===' : '=== PROJECTS ===',
-            ...PROJECTS.map(p => `[${p.id}] ${p.title} - ${p.description[lang]}`)
+            ...PROJECTS.map(p => `${p.title}`)
           ];
           break;
         case 'stack':
           responses = [
             lang === 'ru' ? '=== ТЕХНОЛОГИИ ===' : '=== TECH STACK ===',
-            ...TECH_STACK.map(t => `[${t.category}] ${t.name} - ${t.description}`)
+            ...TECH_STACK.map(t => `${t.name}`)
           ];
           break;
         case 'matrix':
