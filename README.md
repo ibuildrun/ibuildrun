@@ -10,6 +10,24 @@ My workflow is AI-augmented. Kiro, Cursor, Claude — I use them daily.
 Not as a crutch, but as leverage. They handle the repetitive stuff, 
 I focus on architecture and solving actual problems.
 
+## Portfolio Site
+
+This repository contains my personal portfolio website built with Next.js 15 and App Router.
+
+### Run Locally
+
+**Prerequisites:** Node.js 20.x
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Set the `NEXT_PUBLIC_GEMINI_API_KEY` in `.env.local` to your Gemini API key
+3. Run the app:
+   ```bash
+   npm run dev
+   ```
+
 ### Stack
 
 **Web:** Next.js, React, Angular, TypeScript, Tailwind CSS  
