@@ -36,13 +36,13 @@ const AVAILABLE_LANGS = ['ru', 'en'];
 
 // Quick commands for mobile users
 const QUICK_COMMANDS = [
-  { cmd: 'help', icon: '?' },
-  { cmd: 'projects', icon: '📁' },
-  { cmd: 'stack', icon: '⚡' },
-  { cmd: 'matrix', icon: '🟢' },
-  { cmd: 'theme hacker', icon: '🖤' },
-  { cmd: 'theme paper', icon: '📄' },
-  { cmd: 'clear', icon: '🗑️' },
+  { cmd: 'help', label: '?' },
+  { cmd: 'projects', label: 'proj' },
+  { cmd: 'stack', label: 'tech' },
+  { cmd: 'matrix', label: 'mtrx' },
+  { cmd: 'theme hacker', label: 'dark' },
+  { cmd: 'theme paper', label: 'lite' },
+  { cmd: 'clear', label: 'clr' },
 ];
 
 const Terminal: React.FC<TerminalProps> = ({ 
@@ -448,7 +448,7 @@ const Terminal: React.FC<TerminalProps> = ({
                 {/* Mobile hint message */}
                 {isMobile && history.length <= 2 && (
                   <div className="mb-4 p-3 border rounded text-[10px] opacity-70" style={{ borderColor: 'var(--accent)', backgroundColor: 'rgba(0,255,0,0.05)' }}>
-                    <span style={{ color: 'var(--accent)' }}>💡 </span>
+                    <span style={{ color: 'var(--accent)' }}>[i] </span>
                     {lang === 'ru' 
                       ? 'Используйте кнопки ниже для быстрого доступа к командам' 
                       : 'Use buttons below for quick command access'}
@@ -478,15 +478,14 @@ const Terminal: React.FC<TerminalProps> = ({
               {/* Mobile quick command buttons */}
               {isMobile && (
                 <div className="p-3 border-t flex flex-wrap gap-2 justify-center" style={{ borderColor: 'var(--border)', backgroundColor: 'rgba(255,255,255,0.02)' }}>
-                  {QUICK_COMMANDS.map(({ cmd, icon }) => (
+                  {QUICK_COMMANDS.map(({ cmd, label }) => (
                     <button
                       key={cmd}
                       onClick={(e) => { e.stopPropagation(); executeQuickCommand(cmd); }}
                       className="px-3 py-2 border text-[10px] font-bold uppercase tracking-wider transition-all active:scale-95 hover:opacity-100 opacity-80"
                       style={{ borderColor: 'var(--border)', color: 'var(--fg)', backgroundColor: 'var(--bg)' }}
                     >
-                      <span className="mr-1">{icon}</span>
-                      {cmd.split(' ')[0]}
+                      {label}
                     </button>
                   ))}
                 </div>
