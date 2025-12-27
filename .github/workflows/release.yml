@@ -35,6 +35,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          GITHUB_PAGES: 'true'
 
       - name: Get version from package.json
         id: package-version
