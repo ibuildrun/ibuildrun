@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ibuildrun-v1';
+const CACHE_NAME = 'ibuildrun-v2';
 const OFFLINE_URL = '/offline.html';
 
 const STATIC_ASSETS = [
@@ -60,9 +60,13 @@ self.addEventListener('fetch', (event) => {
         }
 
         const responseToCache = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
-        });
+        const url = event.request.url;
+        // Only cache http/https requests
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          }).catch(() => {});
+        }
 
         return response;
       }).catch(() => {
