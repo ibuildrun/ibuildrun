@@ -1,13 +1,5 @@
 import type { Metadata } from 'next';
-import { Space_Mono } from 'next/font/google';
 import './globals.css';
-
-const spaceMono = Space_Mono({
-  weight: ['400', '700'],
-  subsets: ['latin', 'latin-ext'],
-  display: 'swap',
-  variable: '--font-space-mono',
-});
 
 export const metadata: Metadata = {
   title: 'IBUILDRUN | AI-Augmented Developer Portfolio',
@@ -17,10 +9,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'IBUILDRUN',
     description: 'AI-Augmented Developer Portfolio',
-    url: 'https://ibuildrun.github.io/ibuildrun',
+    url: 'https://ibuildrun.ru',
     siteName: 'IBUILDRUN',
     type: 'website',
-    locale: 'ru_RU',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
@@ -39,8 +31,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${spaceMono.variable} bg-black text-white`} style={{ scrollBehavior: 'smooth' }} suppressHydrationWarning>
+    <html lang="en" className="bg-black text-white" style={{ scrollBehavior: 'smooth' }} suppressHydrationWarning>
       <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#000000" />
       </head>
