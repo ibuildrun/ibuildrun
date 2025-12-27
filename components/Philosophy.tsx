@@ -19,7 +19,7 @@ const Philosophy: React.FC<PhilosophyProps> = ({ lang }) => {
   ];
 
   return (
-    <section id="manifesto" className="min-h-screen py-24 md:py-48 px-6 md:px-24 flex items-center z-10 relative border-t bg-transparent" style={{ borderColor: 'var(--border)' }}>
+    <section id="manifesto" className="min-h-screen py-24 md:py-48 px-6 md:px-24 flex items-center z-10 relative border-t" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)' }}>
       <div className="grid lg:grid-cols-2 gap-12 md:gap-24 items-center max-w-[1400px] mx-auto">
         <div className="space-y-8 md:space-y-12 order-2 lg:order-1">
           <div className="text-[9px] md:text-[10px] uppercase tracking-[0.8em] md:tracking-[1em] mb-4 md:mb-8 font-bold" style={{ color: 'var(--muted)' }}>{t.philosophy.log}</div>

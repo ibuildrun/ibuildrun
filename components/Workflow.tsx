@@ -13,7 +13,7 @@ const Workflow: React.FC<WorkflowProps> = ({ lang }) => {
   const t = translations[lang];
 
   return (
-    <section id="workflow" className="min-h-screen py-24 md:py-48 px-6 md:px-24 z-10 relative overflow-hidden border-t bg-transparent" style={{ borderColor: 'var(--border)' }}>
+    <section id="workflow" className="min-h-screen py-24 md:py-48 px-6 md:px-24 z-10 relative overflow-hidden border-t" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)' }}>
       <div className="max-w-7xl mx-auto">
         <div className="mb-16 md:mb-24 text-center md:text-left">
           <div className="text-[10px] uppercase tracking-[1em] mb-4 font-bold" style={{ color: 'var(--muted)' }}>{t.workflow.pipeline}</div>

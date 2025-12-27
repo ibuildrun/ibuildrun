@@ -15,7 +15,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
   const t = translations[lang];
 
   return (
-    <section id="projects" className="min-h-screen py-24 md:py-48 px-4 md:px-24 z-10 relative border-t bg-transparent" style={{ borderColor: 'var(--border)' }}>
+    <section id="projects" className="min-h-screen py-24 md:py-48 px-4 md:px-24 z-10 relative border-t" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)' }}>
       <div className="max-w-7xl mx-auto">
         <div className="mb-16 md:mb-24">
           <div className="text-[9px] md:text-[10px] uppercase tracking-[0.4em] md:tracking-[0.6em] mb-4 font-bold" style={{ color: 'var(--muted)' }}>{t.portfolio.storage}</div>
