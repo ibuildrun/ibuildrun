@@ -24,9 +24,18 @@ const AchievementToast: React.FC<AchievementToastProps> = ({ achievement, onClos
           initial={{ x: 300, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: 300, opacity: 0 }}
-          className="fixed bottom-12 right-12 z-[2000] bg-white text-black p-6 border border-black shadow-[0_20px_50px_rgba(255,255,255,0.1)] flex items-center gap-4"
+          className="fixed bottom-12 right-12 z-[2000] p-6 border-2 flex items-center gap-4"
+          style={{
+            backgroundColor: 'var(--fg)',
+            color: 'var(--bg)',
+            borderColor: 'var(--accent)',
+            boxShadow: '0 20px 50px rgba(var(--accent), 0.2)',
+          }}
         >
-          <div className="w-10 h-10 bg-black flex items-center justify-center text-white">
+          <div 
+            className="w-10 h-10 flex items-center justify-center"
+            style={{ backgroundColor: 'var(--bg)', color: 'var(--fg)' }}
+          >
             <Award size={20} />
           </div>
           <div>
