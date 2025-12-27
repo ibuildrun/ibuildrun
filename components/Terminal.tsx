@@ -200,6 +200,18 @@ const Terminal: React.FC<TerminalProps> = ({
         responses = ['ibuildrun // System Architect'];
         break;
 
+      case 'matrix':
+        onMatrixToggle();
+        responses = [lang === 'ru' ? '[OK] Matrix эффект переключен' : '[OK] Matrix effect toggled'];
+        onAchievement(lang === 'ru' ? 'Нео' : 'The One');
+        break;
+
+      case 'crt':
+        onCrtToggle();
+        responses = [lang === 'ru' ? '[OK] CRT эффект переключен' : '[OK] CRT effect toggled'];
+        onAchievement(lang === 'ru' ? 'Ретро' : 'Retro Vibes');
+        break;
+
       case 'clear':
         setHistory([]);
         setInput('');
