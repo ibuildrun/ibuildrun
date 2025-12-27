@@ -20,16 +20,44 @@ const BackgroundGrid: React.FC<BackgroundGridProps> = ({ isMatrixMode = false })
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const columns = Math.floor(width / 20);
+    const fontSize = isMatrixMode ? 16 : 10;
+    const columns = Math.floor(width / fontSize);
     const drops: number[] = new Array(columns).fill(1);
+    
+    // Matrix characters
+    const matrixChars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF';
 
     const draw = () => {
-      // Fade effect
-      ctx.fillStyle = isMatrixMode ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, width, height);
+      if (isMatrixMode) {
+        // Matrix mode - dark fade for trail effect
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, width, height);
 
-      // Draw Grid (Subtle if not matrix)
-      if (!isMatrixMode) {
+        // Green matrix rain
+        ctx.fillStyle = '#0f0';
+        ctx.font = `${fontSize}px monospace`;
+
+        for (let i = 0; i < drops.length; i++) {
+          const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
+
+          // Draw character
+          ctx.fillText(char, x, y);
+
+          // Reset drop randomly after passing screen
+          if (y > height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+
+          drops[i]++;
+        }
+      } else {
+        // Normal mode - subtle grid
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, width, height);
+
+        // Draw grid
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
         ctx.lineWidth = 1;
         const step = 60;
@@ -45,28 +73,25 @@ const BackgroundGrid: React.FC<BackgroundGridProps> = ({ isMatrixMode = false })
           ctx.lineTo(width, y);
           ctx.stroke();
         }
-      }
 
-      // Binary Rain / Matrix
-      ctx.fillStyle = isMatrixMode ? 'rgba(0, 255, 70, 0.5)' : 'rgba(255, 255, 255, 0.15)';
-      ctx.font = isMatrixMode ? '14px monospace' : '10px Space Mono';
-      
-      for (let i = 0; i < drops.length; i++) {
-        const text = Math.random() > 0.5 ? '0' : '1';
-        const x = i * 20;
-        const y = drops[i] * 20;
-
-        // Density check
-        if (isMatrixMode || Math.random() > 0.95) {
-          ctx.fillText(text, x, y);
-        }
-
-        if (y > height && Math.random() > (isMatrixMode ? 0.95 : 0.975)) {
-          drops[i] = 0;
-        }
+        // Subtle binary rain
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.font = '10px monospace';
         
-        // Speed
-        drops[i] += isMatrixMode ? 1.5 : 1;
+        for (let i = 0; i < drops.length; i++) {
+          if (Math.random() > 0.97) {
+            const text = Math.random() > 0.5 ? '0' : '1';
+            const x = i * fontSize;
+            const y = drops[i] * fontSize;
+            ctx.fillText(text, x, y);
+          }
+
+          if (drops[i] * fontSize > height && Math.random() > 0.99) {
+            drops[i] = 0;
+          }
+          
+          drops[i] += 0.5;
+        }
       }
 
       animationFrame = requestAnimationFrame(draw);
@@ -86,7 +111,16 @@ const BackgroundGrid: React.FC<BackgroundGridProps> = ({ isMatrixMode = false })
     };
   }, [isMatrixMode]);
 
-  return <canvas ref={canvasRef} className={`fixed inset-0 -z-10 transition-opacity duration-1000 ${isMatrixMode ? 'opacity-80' : 'opacity-40'}`} />;
+  return (
+    <canvas 
+      ref={canvasRef} 
+      className="fixed inset-0 pointer-events-none"
+      style={{ 
+        zIndex: isMatrixMode ? 1 : -10,
+        opacity: isMatrixMode ? 0.9 : 0.5,
+      }}
+    />
+  );
 };
 
 export default BackgroundGrid;
