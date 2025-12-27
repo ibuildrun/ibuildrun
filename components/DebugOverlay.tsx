@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 
 const DebugOverlay: React.FC = () => {
+  const [mounted, setMounted] = useState(false);
   const [stats, setStats] = useState({
     x: 0,
     y: 0,
@@ -12,6 +13,12 @@ const DebugOverlay: React.FC = () => {
   });
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     let lastTime = performance.now();
     let frames = 0;
 
@@ -42,7 +49,9 @@ const DebugOverlay: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
       cancelAnimationFrame(animId);
     };
-  }, []);
+  }, [mounted]);
+
+  if (!mounted) return null;
 
   return (
     <div className="fixed bottom-8 left-8 z-[150] font-mono text-[9px] uppercase tracking-tighter text-white/20 pointer-events-none hidden lg:block">

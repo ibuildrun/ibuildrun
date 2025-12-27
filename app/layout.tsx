@@ -39,11 +39,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru" className={`${spaceMono.variable} bg-black text-white`} style={{ scrollBehavior: 'smooth' }}>
-      <body className="font-mono">
+    <html lang="ru" className={`${spaceMono.variable} bg-black text-white`} style={{ scrollBehavior: 'smooth' }} suppressHydrationWarning>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#000000" />
+      </head>
+      <body className="font-mono" suppressHydrationWarning>
         {children}
         <div className="scanline" />
         <div className="noise" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js');
+                });
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );

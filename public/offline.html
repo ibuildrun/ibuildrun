@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBUILDRUN | Offline</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Space Mono', monospace;
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .container { max-width: 500px; }
+    h1 {
+      font-size: 4rem;
+      letter-spacing: -0.05em;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+    .status {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 2rem;
+    }
+    p {
+      font-size: 0.8rem;
+      line-height: 1.8;
+      opacity: 0.7;
+      margin-bottom: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      border: 2px solid #fff;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+    .ascii {
+      font-size: 0.5rem;
+      opacity: 0.2;
+      margin-bottom: 2rem;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <pre class="ascii">
+ ___  ___  _   _  ___  _      ___   ____  _   _  _   _ 
+|_ _|| __|| | | ||_ _|| |    | _ \ | __ || | | || \ | |
+ | | | __|| |_| | | | | |__  | v / |  _|| |_| ||  \| |
+|___||___| \___/ |___||____| |_|_\ |__|  \___/ |_|\__|
+    </pre>
+    <div class="status">[ CONNECTION_LOST ]</div>
+    <h1>Offline</h1>
+    <p>Нет подключения к сети. Проверьте интернет-соединение и попробуйте снова.</p>
+    <a href="/" class="btn" onclick="location.reload(); return false;">Retry Connection</a>
+  </div>
+</body>
+</html>

@@ -276,7 +276,7 @@ const MainContent: React.FC = () => {
 
         <footer className="py-32 border-t text-center px-6 relative" style={{ borderColor: 'var(--border)' }}>
           <div className="absolute bottom-12 right-12 text-[7px] text-right hidden lg:block select-none pointer-events-none uppercase tracking-[0.3em] font-bold leading-loose opacity-30" style={{ color: 'var(--fg)' }}>
-            {`BUILD: 7f8e9a1b // RUNTIME: v2.4.0\nCOMPILED: ${new Date().toISOString()}`}
+            {`BUILD: 7f8e9a1b // RUNTIME: v2.4.0\nCOMPILED: 2025`}
           </div>
           <div 
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -288,7 +288,7 @@ const MainContent: React.FC = () => {
             </div>
           </div>
           <div className="text-[9px] uppercase tracking-[0.6em] font-bold" style={{ color: 'var(--muted)' }}>
-            &copy; {new Date().getFullYear()} IBUILDRUN — ARCH_BY_DESIGN // SHIP_BY_CODE
+            &copy; 2025 IBUILDRUN — ARCH_BY_DESIGN // SHIP_BY_CODE
           </div>
         </footer>
       </div>
