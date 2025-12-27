@@ -1,10 +1,9 @@
-'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, MicOff, X, Activity, Zap } from 'lucide-react';
 import { GoogleGenAI, Modality, LiveServerMessage } from '@google/genai';
-import { Language, translations } from '@/lib/translations';
+import { Language, translations } from '../translations';
 
 interface NexusLinkProps {
   lang: Language;
@@ -58,7 +57,7 @@ const NexusLink: React.FC<NexusLinkProps> = ({ lang, isOpen, onClose }) => {
   const startSession = async () => {
     setIsConnecting(true);
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY });
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       
       const inputCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });

@@ -4,7 +4,7 @@ import './globals.css';
 
 const spaceMono = Space_Mono({
   weight: ['400', '700'],
-  subsets: ['latin'],
+  subsets: ['latin', 'latin-ext'],
   display: 'swap',
   variable: '--font-space-mono',
 });
