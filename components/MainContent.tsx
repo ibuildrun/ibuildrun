@@ -259,6 +259,10 @@ const MainContent: React.FC = () => {
                       <span className="text-[9px] font-bold uppercase tracking-[0.6em]">Network_ID: hi@ibuildrun.com</span>
                       <ArrowRight size={22} className="group-hover:translate-x-4 transition-transform" />
                   </a>
+                  <a href="https://t.me/ibuildrun" target="_blank" className="group flex items-center justify-between p-12 border-2 hover:invert transition-all" style={{ borderColor: 'var(--border)', color: 'var(--fg)' }}>
+                      <span className="text-[9px] font-bold uppercase tracking-[0.6em]">Telegram: @ibuildrun</span>
+                      <ArrowRight size={22} className="group-hover:translate-x-4 transition-transform" />
+                  </a>
                   <div className="grid grid-cols-1 gap-4">
                     <a href="https://github.com/ibuildrun" target="_blank" className="p-12 border-2 hover:invert transition-all text-center group font-bold uppercase text-[9px] tracking-[0.4em]" style={{ borderColor: 'var(--border)', color: 'var(--fg)' }}>
                         GITHUB
