@@ -40,66 +40,66 @@ export const PROCESS_NODES: ProcessNode[] = [
 export const PROJECTS: Project[] = [
   {
     id: "0x01",
-    title: "NEXASTREAM_CORE",
-    category: { ru: "СИСТЕМНАЯ_АРХ", en: "SYSTEM_ARCH" },
+    title: "HQSTUDIO",
+    category: { ru: "ENTERPRISE_CRM", en: "ENTERPRISE_CRM" },
     year: "2024",
     description: { 
-      ru: "Высокопроизводительный движок обработки потоков нейронных данных.", 
-      en: "High-throughput stream processing engine for neural workloads." 
+      ru: "HQ Studio - Premium Auto Tuning CRM System. Web + Desktop + API монорепо.", 
+      en: "HQ Studio - Premium Auto Tuning CRM System. Web + Desktop + API monorepo." 
     },
     detailedDescription: {
-      ru: "Разработка уровня приема данных, способного обрабатывать более 50 000 событий в секунду. Реализовано кастомное управление памятью и обработчики обратного давления. Интегрировано с Claude API для семантического анализа пакетов в реальном времени.",
-      en: "Development of a highly parallelized ingestion layer handling 50k+ events/sec. Implemented custom memory pooling and backpressure handlers. Integrated with Claude API for real-time semantic analysis."
+      ru: "Полноценная CRM-система для премиум автотюнинга. Монорепозиторий включает веб-приложение на Next.js, десктоп-клиент на .NET 8 WPF и ASP.NET Core API. Интеграция с платежными системами, управление заказами и клиентами.",
+      en: "Full-featured CRM system for premium auto tuning business. Monorepo includes Next.js web app, .NET 8 WPF desktop client, and ASP.NET Core API. Payment integration, order and customer management."
     },
-    stack: ["TypeScript", "Node.js", "Redis", "Kafka"],
-    link: "https://github.com/ibuildrun/nexastream"
+    stack: ["Next.js", "ASP.NET Core", ".NET 8", "PostgreSQL"],
+    link: "https://github.com/ibuildrun/hqstudio"
   },
   {
     id: "0x02",
-    title: "BOT_FRAMEWORK_PRO",
-    category: { ru: "АВТОМАТИЗАЦИЯ", en: "AUTOMATION" },
-    year: "2023",
+    title: "INSTRUCT_PIX2PIX_STUDIO",
+    category: { ru: "AI_РЕДАКТОР", en: "AI_EDITOR" },
+    year: "2024",
     description: { 
-      ru: "Enterprise-обертка для асинхронных бот-коммуникаций.", 
-      en: "Enterprise-grade wrapper for asynchronous bot communications." 
+      ru: "AI-редактор изображений с InstructPix2Pix. Современный glassmorphism UI.", 
+      en: "AI-powered image editor with InstructPix2Pix. Modern glassmorphism UI." 
     },
     detailedDescription: {
-      ru: "Надежный слой промежуточного ПО для Telegram и Slack ботов. Поддерживает автоматическое горизонтальное масштабирование и встроенную аналитику. Сократил время разработки новых фич на 60% за счет стандартизации.",
-      en: "Robust middleware for Telegram/Slack. Features horizontal scaling, built-in analytics, and state-machine conversation engine. Reduced dev time by 60%."
+      ru: "Десктопное приложение для редактирования изображений с помощью ИИ. Использует модель InstructPix2Pix для трансформации изображений по текстовым инструкциям. Поддержка AMD DirectML для ускорения на видеокартах AMD.",
+      en: "Desktop application for AI-powered image editing. Uses InstructPix2Pix model for image transformation via text instructions. AMD DirectML support for GPU acceleration on AMD graphics cards."
     },
-    stack: ["Python", "aiogram", "PostgreSQL", "Docker"],
-    link: "https://github.com/ibuildrun/bot-framework"
+    stack: ["Python", "PyTorch", "DirectML", "Gradio"],
+    link: "https://github.com/ibuildrun/instruct-pix2pix-studio"
   },
   {
     id: "0x03",
-    title: "DOTNET_OBSIDIAN",
-    category: { ru: "ИНТЕРФЕЙСЫ", en: "UI_SYSTEM" },
+    title: "TIC_TAC_TOE_PASTEL",
+    category: { ru: "TELEGRAM_APP", en: "TELEGRAM_APP" },
     year: "2024",
     description: { 
-      ru: "Монохромная дизайн-система для сред WPF и Avalonia.", 
-      en: "Monochrome design system for WPF and Avalonia environments." 
+      ru: "Уютная пастельная игра в крестики-нолики - Telegram Mini App с геймификацией.", 
+      en: "Cozy pastel Tic-Tac-Toe game - Telegram Mini App with gamification." 
     },
     detailedDescription: {
-      ru: "Система дизайна, вдохновленная минималистичными текстовыми редакторами. Полностью кастомные элементы управления на C# без сторонних зависимостей. Оптимизировано для низких задержек отрисовки.",
-      en: "A pure-code design system inspired by minimalist text editors. Custom controls written in C# without third-party dependencies. Optimized for low-latency rendering."
+      ru: "Telegram Mini App с классической игрой в крестики-нолики в пастельных тонах. Система достижений, статистика игр, анимации и звуковые эффекты. Оптимизировано для мобильных устройств.",
+      en: "Telegram Mini App featuring classic Tic-Tac-Toe in pastel colors. Achievement system, game statistics, animations and sound effects. Optimized for mobile devices."
     },
-    stack: [".NET 8", "C#", "Avalonia", "XAML"],
-    link: "https://github.com/ibuildrun/obsidian-ui"
+    stack: ["React", "TypeScript", "Telegram API", "Vite"],
+    link: "https://github.com/ibuildrun/tic-tac-toe-pastel"
   },
   {
     id: "0x04",
-    title: "K8S_INFRA_AUTO",
-    category: { ru: "ДЕВОПС", en: "DEVOPS" },
+    title: "IBUILDRUN_PORTFOLIO",
+    category: { ru: "ПОРТФОЛИО", en: "PORTFOLIO" },
     year: "2024",
     description: { 
-      ru: "Скрипты развертывания Zero-touch для мультиоблачных кластеров.", 
-      en: "Zero-touch deployment scripts for multi-cloud clusters." 
+      ru: "AI-Augmented Developer Portfolio. Терминальный интерфейс, PWA, Docker.", 
+      en: "AI-Augmented Developer Portfolio. Terminal interface, PWA, Docker." 
     },
     detailedDescription: {
-      ru: "Автоматизированная подготовка и управление конфигурацией для кластеров Kubernetes. Включает управление TLS, интеграцию с Vault и кастомные дашборды мониторинга.",
-      en: "Automated provisioning and configuration for K8s. Includes TLS management, Vault integration, and GitOps workflow using ArgoCD."
+      ru: "Персональный сайт-портфолио с терминальным интерфейсом. Встроенный vim-редактор, матричный эффект, темы оформления. PWA с оффлайн-поддержкой, деплой через Docker и Tuna.",
+      en: "Personal portfolio website with terminal interface. Built-in vim editor, matrix effect, theme customization. PWA with offline support, deployed via Docker and Tuna."
     },
-    stack: ["Go", "Terraform", "Kubernetes", "ArgoCD"],
-    link: "https://github.com/ibuildrun/k8s-infra"
+    stack: ["Next.js", "TypeScript", "Tailwind", "Docker"],
+    link: "https://github.com/ibuildrun/ibuildrun"
   }
 ];
