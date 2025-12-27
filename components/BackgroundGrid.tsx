@@ -42,15 +42,19 @@ const BackgroundGrid: React.FC<BackgroundGridProps> = ({ isMatrixMode = false })
           const x = i * fontSize;
           const y = drops[i] * fontSize;
 
-          // Draw character
+          // Draw character with glow effect
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = '#0f0';
           ctx.fillText(char, x, y);
+          ctx.shadowBlur = 0;
 
           // Reset drop randomly after passing screen
           if (y > height && Math.random() > 0.975) {
             drops[i] = 0;
           }
 
-          drops[i]++;
+          // Slower fall speed like in the movie
+          drops[i] += 0.33;
         }
       } else {
         // Normal mode - subtle grid
@@ -116,8 +120,8 @@ const BackgroundGrid: React.FC<BackgroundGridProps> = ({ isMatrixMode = false })
       ref={canvasRef} 
       className="fixed inset-0 pointer-events-none"
       style={{ 
-        zIndex: isMatrixMode ? 1 : -10,
-        opacity: isMatrixMode ? 0.9 : 0.5,
+        zIndex: isMatrixMode ? 5 : -10,
+        opacity: isMatrixMode ? 0.6 : 0.5,
       }}
     />
   );
