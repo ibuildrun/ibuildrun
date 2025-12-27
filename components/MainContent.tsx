@@ -82,7 +82,7 @@ const MainContent: React.FC = () => {
       <ResumePrintView lang={lang} />
       
       <div className="no-print">
-        <BackgroundGrid isMatrixMode={isMatrixMode} />
+        <BackgroundGrid key={isMatrixMode ? 'matrix' : 'normal'} isMatrixMode={isMatrixMode} />
         <DebugOverlay />
         <AchievementToast achievement={achievement} onClose={() => setAchievement(null)} />
         
