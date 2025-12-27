@@ -485,74 +485,58 @@ const VimEditor: React.FC<VimEditorProps> = ({ filename, initialContent, onExit 
       tabIndex={0}
     >
       {/* Editor area */}
-      <div className="flex-1 overflow-auto p-2 text-sm leading-5">
+      <div className="flex-1 overflow-hidden p-2 text-sm leading-5">
         {lines.map((line, rowIdx) => (
           <div key={rowIdx} className="flex">
             {/* Line number */}
             <span 
-              className="w-8 text-right pr-2 select-none flex-shrink-0"
+              className="w-6 text-right pr-2 select-none flex-shrink-0 text-xs"
               style={{ color: 'var(--muted)' }}
             >
               {rowIdx + 1}
             </span>
             {/* Line content */}
-            <div className="flex-1 whitespace-pre relative">
-              {line.split('').map((char, colIdx) => {
-                const isCursor = rowIdx === cursorRow && colIdx === cursorCol;
-                const isVisualSelected = visualStart && (
-                  (rowIdx > Math.min(visualStart.row, cursorRow) && rowIdx < Math.max(visualStart.row, cursorRow)) ||
-                  (rowIdx === visualStart.row && rowIdx === cursorRow && colIdx >= Math.min(visualStart.col, cursorCol) && colIdx <= Math.max(visualStart.col, cursorCol)) ||
-                  (rowIdx === Math.min(visualStart.row, cursorRow) && rowIdx !== Math.max(visualStart.row, cursorRow) && colIdx >= (visualStart.row < cursorRow ? visualStart.col : cursorCol)) ||
-                  (rowIdx === Math.max(visualStart.row, cursorRow) && rowIdx !== Math.min(visualStart.row, cursorRow) && colIdx <= (visualStart.row > cursorRow ? visualStart.col : cursorCol))
-                );
-                
-                return (
-                  <span
-                    key={colIdx}
-                    className={`${isCursor ? 'relative' : ''}`}
-                    style={{
-                      backgroundColor: isVisualSelected ? 'var(--accent)' : undefined,
-                      color: isVisualSelected ? 'var(--bg)' : undefined,
+            <div className="flex-1 overflow-hidden relative">
+              <div className="break-all">
+                {line.split('').map((char, colIdx) => {
+                  const isCursor = rowIdx === cursorRow && colIdx === cursorCol;
+                  const isVisualSelected = visualStart && (
+                    (rowIdx > Math.min(visualStart.row, cursorRow) && rowIdx < Math.max(visualStart.row, cursorRow)) ||
+                    (rowIdx === visualStart.row && rowIdx === cursorRow && colIdx >= Math.min(visualStart.col, cursorCol) && colIdx <= Math.max(visualStart.col, cursorCol)) ||
+                    (rowIdx === Math.min(visualStart.row, cursorRow) && rowIdx !== Math.max(visualStart.row, cursorRow) && colIdx >= (visualStart.row < cursorRow ? visualStart.col : cursorCol)) ||
+                    (rowIdx === Math.max(visualStart.row, cursorRow) && rowIdx !== Math.min(visualStart.row, cursorRow) && colIdx <= (visualStart.row > cursorRow ? visualStart.col : cursorCol))
+                  );
+                  
+                  return (
+                    <span
+                      key={colIdx}
+                      className={`inline ${isCursor ? 'relative' : ''}`}
+                      style={{
+                        backgroundColor: isCursor 
+                          ? (mode === 'INSERT' ? 'transparent' : 'var(--fg)') 
+                          : isVisualSelected ? 'var(--accent)' : undefined,
+                        color: isCursor && mode !== 'INSERT' 
+                          ? 'var(--bg)' 
+                          : isVisualSelected ? 'var(--bg)' : undefined,
+                      }}
+                    >
+                      {char}
+                    </span>
+                  );
+                })}
+                {/* Cursor at end of line or empty line */}
+                {rowIdx === cursorRow && cursorCol >= line.length && (
+                  <span 
+                    className="inline-block animate-pulse"
+                    style={{ 
+                      backgroundColor: mode === 'INSERT' ? 'var(--accent)' : 'var(--fg)',
+                      width: mode === 'INSERT' ? '2px' : '8px',
+                      height: '1em',
+                      verticalAlign: 'text-bottom',
                     }}
-                  >
-                    {isCursor && (
-                      <span 
-                        className="absolute inset-0 animate-pulse"
-                        style={{ 
-                          backgroundColor: mode === 'INSERT' ? 'var(--accent)' : 'var(--fg)',
-                          opacity: mode === 'INSERT' ? 0.3 : 0.7,
-                          width: mode === 'INSERT' ? '2px' : '100%',
-                        }}
-                      />
-                    )}
-                    {char}
-                  </span>
-                );
-              })}
-              {/* Cursor at end of line */}
-              {rowIdx === cursorRow && cursorCol >= line.length && (
-                <span 
-                  className="inline-block animate-pulse"
-                  style={{ 
-                    backgroundColor: mode === 'INSERT' ? 'var(--accent)' : 'var(--fg)',
-                    opacity: mode === 'INSERT' ? 0.3 : 0.7,
-                    width: mode === 'INSERT' ? '2px' : '8px',
-                    height: '1.25em',
-                  }}
-                />
-              )}
-              {/* Empty line cursor */}
-              {line.length === 0 && rowIdx === cursorRow && (
-                <span 
-                  className="inline-block animate-pulse"
-                  style={{ 
-                    backgroundColor: mode === 'INSERT' ? 'var(--accent)' : 'var(--fg)',
-                    opacity: mode === 'INSERT' ? 0.3 : 0.7,
-                    width: mode === 'INSERT' ? '2px' : '8px',
-                    height: '1.25em',
-                  }}
-                />
-              )}
+                  />
+                )}
+              </div>
             </div>
           </div>
         ))}
