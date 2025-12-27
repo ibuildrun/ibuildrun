@@ -34,6 +34,17 @@ const AVAILABLE_COMMANDS = [
 const AVAILABLE_THEMES = ['hacker', 'paper', 'default'];
 const AVAILABLE_LANGS = ['ru', 'en'];
 
+// Quick commands for mobile users
+const QUICK_COMMANDS = [
+  { cmd: 'help', icon: '?' },
+  { cmd: 'projects', icon: '📁' },
+  { cmd: 'stack', icon: '⚡' },
+  { cmd: 'matrix', icon: '🟢' },
+  { cmd: 'theme hacker', icon: '🖤' },
+  { cmd: 'theme paper', icon: '📄' },
+  { cmd: 'clear', icon: '🗑️' },
+];
+
 const Terminal: React.FC<TerminalProps> = ({ 
   lang,
   isOpen, 
@@ -52,9 +63,20 @@ const Terminal: React.FC<TerminalProps> = ({
   const [commandHistory, setCommandHistory] = useState<string[]>(savedCommandHistory);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [vimFile, setVimFile] = useState<{ name: string; content: string } | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Sync with saved command history
   useEffect(() => {
@@ -216,6 +238,64 @@ const Terminal: React.FC<TerminalProps> = ({
         responses = ['ibuildrun // System Architect'];
         break;
 
+      case 'projects':
+        responses = [
+          lang === 'ru' ? '=== ПРОЕКТЫ ===' : '=== PROJECTS ===',
+          ...PROJECTS.map(p => `[${p.id}] ${p.title} - ${p.description[lang]}`)
+        ];
+        break;
+
+      case 'stack':
+        responses = [
+          lang === 'ru' ? '=== ТЕХНОЛОГИИ ===' : '=== TECH STACK ===',
+          ...TECH_STACK.map(tech => `[${tech.category}] ${tech.name} - ${tech.description}`)
+        ];
+        break;
+
+      case 'socials':
+        responses = [
+          lang === 'ru' ? '=== КОНТАКТЫ ===' : '=== SOCIALS ===',
+          '  GitHub:   github.com/ibuildrun',
+          '  Telegram: @ibuildrun'
+        ];
+        break;
+
+      case 'neofetch':
+        responses = [
+          '       ██╗██████╗ ██████╗ ',
+          '       ██║██╔══██╗██╔══██╗',
+          '       ██║██████╔╝██████╔╝',
+          '  ██   ██║██╔══██╗██╔══██╗',
+          '  ╚█████╔╝██████╔╝██║  ██║',
+          '   ╚════╝ ╚═════╝ ╚═╝  ╚═╝',
+          '',
+          '  ibuildrun@portfolio',
+          '  -------------------',
+          `  OS: ibuildrun_os v2.4.0`,
+          `  Shell: ibr-terminal`,
+          `  Theme: ${document.documentElement.getAttribute('data-theme') || 'default'}`,
+          `  Lang: ${lang}`,
+          `  Uptime: ${Math.floor(Math.random() * 999)} days`
+        ];
+        break;
+
+      case 'sudo':
+        responses = [lang === 'ru' ? '[ОТКАЗАНО] Хорошая попытка.' : '[DENIED] Nice try.'];
+        break;
+
+      case 'date':
+        responses = [new Date().toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US')];
+        break;
+
+      case 'git':
+        responses = [
+          'git status',
+          '  On branch: main',
+          '  Your branch is up to date.',
+          '  nothing to commit, working tree clean'
+        ];
+        break;
+
       case 'history':
         if (commandHistory.length === 0) {
           responses = [lang === 'ru' ? 'История команд пуста' : 'Command history is empty'];
@@ -254,6 +334,77 @@ const Terminal: React.FC<TerminalProps> = ({
   };
 
   if (!isOpen) return null;
+
+  // Execute quick command from button
+  const executeQuickCommand = (cmd: string) => {
+    setInput(cmd);
+    // Trigger command execution
+    const fakeEvent = { preventDefault: () => {} } as React.FormEvent;
+    setTimeout(() => {
+      const parts = cmd.toLowerCase().split(' ');
+      const command = parts[0];
+      const args = parts.slice(1);
+      
+      let responses: string[] = [];
+
+      switch (command) {
+        case 'help':
+          responses = [
+            lang === 'ru' ? 'Доступные команды:' : 'Available commands:',
+            '  lang [ru|en]- Переключение языка / Change language',
+            '  theme [t]   - hacker, paper, default',
+            '  vim [file]  - Edit/view a file',
+            '  ls          - List files',
+            '  cat [file]  - Read file',
+            '  history     - Show command history',
+            '  print-pdf   - Generate minimalist resume PDF',
+            '  matrix      - Toggle Matrix effect',
+            '  crt         - Toggle CRT effect',
+            '  clear       - Clear terminal',
+            '  exit        - Close terminal'
+          ];
+          break;
+        case 'projects':
+          responses = [
+            lang === 'ru' ? '=== ПРОЕКТЫ ===' : '=== PROJECTS ===',
+            ...PROJECTS.map(p => `[${p.id}] ${p.title} - ${p.description[lang]}`)
+          ];
+          break;
+        case 'stack':
+          responses = [
+            lang === 'ru' ? '=== ТЕХНОЛОГИИ ===' : '=== TECH STACK ===',
+            ...TECH_STACK.map(t => `[${t.category}] ${t.name} - ${t.description}`)
+          ];
+          break;
+        case 'matrix':
+          onMatrixToggle();
+          responses = [lang === 'ru' ? '[OK] Matrix эффект переключен' : '[OK] Matrix effect toggled'];
+          onAchievement(lang === 'ru' ? 'Нео' : 'The One');
+          break;
+        case 'theme':
+          if (AVAILABLE_THEMES.includes(args[0])) {
+            onThemeChange(args[0]);
+            responses = [`[OK] Interface theme set to ${args[0]}`];
+            onAchievement(lang === 'ru' ? 'Стилист' : 'Customizer');
+          }
+          break;
+        case 'clear':
+          setHistory([]);
+          setInput('');
+          return;
+        default:
+          responses = [`Command not found: ${command}`];
+      }
+
+      setCommandHistory(prev => {
+        const newHistory = [...prev, cmd];
+        onCommandHistoryChange?.(newHistory);
+        return newHistory;
+      });
+      setHistory(prev => [...prev, `> ${cmd}`, ...responses]);
+      setInput('');
+    }, 50);
+  };
 
   return (
     <motion.div
@@ -294,6 +445,15 @@ const Terminal: React.FC<TerminalProps> = ({
                 </button>
               </div>
               <div ref={scrollRef} className="p-6 flex-1 overflow-y-auto flex flex-col gap-2 bg-transparent scrollbar-thin">
+                {/* Mobile hint message */}
+                {isMobile && history.length <= 2 && (
+                  <div className="mb-4 p-3 border rounded text-[10px] opacity-70" style={{ borderColor: 'var(--accent)', backgroundColor: 'rgba(0,255,0,0.05)' }}>
+                    <span style={{ color: 'var(--accent)' }}>💡 </span>
+                    {lang === 'ru' 
+                      ? 'Используйте кнопки ниже для быстрого доступа к командам' 
+                      : 'Use buttons below for quick command access'}
+                  </div>
+                )}
                 {history.map((line, i) => (
                   <div key={i} className={`whitespace-pre-wrap leading-relaxed ${line.startsWith('>') ? 'font-bold' : 'opacity-70'}`} style={{ color: line.startsWith('>') ? 'var(--accent)' : 'var(--fg)' }}>{line}</div>
                 ))}
@@ -314,6 +474,24 @@ const Terminal: React.FC<TerminalProps> = ({
                   </div>
                 </form>
               </div>
+              
+              {/* Mobile quick command buttons */}
+              {isMobile && (
+                <div className="p-3 border-t flex flex-wrap gap-2 justify-center" style={{ borderColor: 'var(--border)', backgroundColor: 'rgba(255,255,255,0.02)' }}>
+                  {QUICK_COMMANDS.map(({ cmd, icon }) => (
+                    <button
+                      key={cmd}
+                      onClick={(e) => { e.stopPropagation(); executeQuickCommand(cmd); }}
+                      className="px-3 py-2 border text-[10px] font-bold uppercase tracking-wider transition-all active:scale-95 hover:opacity-100 opacity-80"
+                      style={{ borderColor: 'var(--border)', color: 'var(--fg)', backgroundColor: 'var(--bg)' }}
+                    >
+                      <span className="mr-1">{icon}</span>
+                      {cmd.split(' ')[0]}
+                    </button>
+                  ))}
+                </div>
+              )}
+              
               <div className="p-2 px-6 border-t text-[9px] opacity-40 flex justify-between uppercase font-bold tracking-widest" style={{ borderColor: 'var(--border)' }}>
                  <span>ibuildrun_os_v2.4.0 [{lang}]</span>
                  <span>UTF-8</span>
