@@ -28,6 +28,43 @@ This repository contains my personal portfolio website built with Next.js 15 and
    npm run dev
    ```
 
+### Docker Development
+
+Run the development server in Docker with hot reload:
+
+```bash
+# Start development server
+docker-compose up
+
+# Start with Tuna tunnel for public access
+docker-compose --profile tunnel up
+
+# Production build
+docker-compose --profile production up app-prod
+```
+
+### Tuna Tunnel Setup
+
+Expose your local dev server on `ibuildrun.ru` domain:
+
+1. Get your Tuna token from [tuna.am](https://tuna.am)
+2. Add to `.env.local`:
+   ```
+   TUNA_TOKEN=tt_your_token_here
+   TUNA_DOMAIN=ibuildrun.ru
+   ```
+3. Start tunnel:
+   ```bash
+   # With Docker
+   docker-compose --profile tunnel up
+   
+   # Without Docker (Linux/macOS)
+   ./scripts/start-tunnel.sh
+   
+   # Without Docker (Windows PowerShell)
+   .\scripts\start-tunnel.ps1
+   ```
+
 ### Stack
 
 **Web:** Next.js, React, Angular, TypeScript, Tailwind CSS  

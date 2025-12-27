@@ -1,0 +1,55 @@
+services:
+  # Production build (static export) - Main service
+  app:
+    image: ibuildrun-portfolio:prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: ibuildrun-app
+    ports:
+      - "8080:3000"
+    environment:
+      - NODE_ENV=production
+    restart: always
+
+  # Tuna HTTP Tunnel for public access on ibuildrun.ru
+  tuna:
+    image: alpine:latest
+    container_name: ibuildrun-tuna
+    depends_on:
+      - app
+    environment:
+      - TUNA_TOKEN=${TUNA_TOKEN}
+      - TUNA_DOMAIN=${TUNA_DOMAIN}
+    command: >
+      /bin/sh -c "
+        apk add --no-cache curl bash &&
+        curl -fsSL https://get.tuna.am/install.sh | sh &&
+        /root/.tuna/bin/tuna http 8080 --token=$$TUNA_TOKEN --domain=$$TUNA_DOMAIN
+      "
+    network_mode: host
+    restart: always
+
+  # Development Server (optional, use with: docker compose --profile dev up app-dev)
+  app-dev:
+    image: ibuildrun-portfolio:dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: ibuildrun-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+    env_file:
+      - .env.local
+    profiles:
+      - dev
+    restart: unless-stopped
