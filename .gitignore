@@ -32,3 +32,6 @@ out/
 
 # Kiro
 .kiro/
+
+# Original Vite project (for local comparison only)
+ibuildrun-_-ai-augmented-developer-portfolio/
