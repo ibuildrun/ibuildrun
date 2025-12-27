@@ -10,6 +10,15 @@
   --muted: rgba(255, 255, 255, 0.4);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* Smooth scrolling for all elements */
+* {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: 'Space Mono', monospace;

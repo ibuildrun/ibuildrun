@@ -181,6 +181,21 @@ const Terminal: React.FC<TerminalProps> = ({
         else responses = [`cat: ${args[0]}: No such file`];
         break;
 
+      case 'vim':
+        if (args.length === 0) {
+          responses = ['Usage: vim [filename]'];
+        } else {
+          const fileName = args[0];
+          const fileContent = MOCK_FILES[fileName as keyof typeof MOCK_FILES] || '';
+          setHistory([...history, `> ${fullCommand}`, `Opening ${fileName} in vim...`]);
+          setInput('');
+          setTimeout(() => {
+            setVimFile({ name: fileName, content: fileContent });
+          }, 100);
+          return;
+        }
+        break;
+
       case 'whoami':
         responses = ['ibuildrun // System Architect'];
         break;
