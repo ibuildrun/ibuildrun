@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Globe, Linkedin } from 'lucide-react';
+import { Send, Github, Globe } from 'lucide-react';
 import { Language } from '@/lib/translations';
 
 interface BusinessCardProps {
@@ -48,35 +48,31 @@ const BusinessCard: React.FC<BusinessCardProps> = ({ lang }) => {
           </div>
         </div>
 
-        <div className="absolute inset-0 w-full h-full backface-hidden bg-white text-black rotate-y-180 p-12 flex flex-col justify-between shadow-2xl overflow-hidden border-2 border-black">
-          <div className="space-y-6 relative z-10">
-            <div className="flex items-center gap-6 border-b border-black pb-4">
-              <Mail size={16} className="opacity-80" />
-              <span className="text-[10px] font-bold tracking-[0.3em]">HI@IBUILDRUN.COM</span>
+        <div className="absolute inset-0 w-full h-full backface-hidden bg-white text-black rotate-y-180 p-8 md:p-12 flex flex-col justify-between shadow-2xl overflow-hidden border-2 border-black">
+          <div className="space-y-4 md:space-y-6 relative z-10">
+            <div className="flex items-center gap-4 md:gap-6 border-b border-black pb-3 md:pb-4">
+              <Send size={16} className="opacity-80 flex-shrink-0" />
+              <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] md:tracking-[0.3em]">T.ME/IBUILDRUN</span>
             </div>
-            <div className="flex items-center gap-6 border-b border-black pb-4">
-              <Github size={16} className="opacity-80" />
-              <span className="text-[10px] font-bold tracking-[0.3em]">GITHUB.COM/IBUILDRUN</span>
-            </div>
-            <div className="flex items-center gap-6 border-b border-black pb-4">
-              <Linkedin size={16} className="opacity-80" />
-              <span className="text-[10px] font-bold tracking-[0.3em]">LINKED.IN/IBUILDRUN</span>
+            <div className="flex items-center gap-4 md:gap-6 border-b border-black pb-3 md:pb-4">
+              <Github size={16} className="opacity-80 flex-shrink-0" />
+              <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] md:tracking-[0.3em]">GITHUB.COM/IBUILDRUN</span>
             </div>
           </div>
           
           <div className="flex justify-between items-end relative z-10">
             <div>
-              <div className="text-[9px] font-bold uppercase tracking-[0.4em] mb-1">System_Status: ACTIVE</div>
-              <div className="text-[8px] opacity-80 font-bold tracking-widest uppercase">{lang === 'ru' ? 'ВРЕМЯ_UTC' : 'EST_UTC'}: 2024.Q4</div>
+              <div className="text-[8px] md:text-[9px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] mb-1">System_Status: ACTIVE</div>
+              <div className="text-[7px] md:text-[8px] opacity-80 font-bold tracking-widest uppercase">{lang === 'ru' ? 'ВРЕМЯ_UTC' : 'EST_UTC'}: 2025.Q1</div>
             </div>
-            <div className="w-12 h-12 bg-black flex items-center justify-center">
-              <Globe size={24} className="text-white animate-spin-slow" />
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-black flex items-center justify-center">
+              <Globe size={20} className="text-white animate-spin-slow md:w-6 md:h-6" />
             </div>
           </div>
         </div>
       </motion.div>
       
-      <div className="mt-10 text-center text-[9px] font-bold uppercase tracking-[0.8em] animate-pulse" style={{ color: 'var(--muted)' }}>
+      <div className="mt-6 md:mt-10 text-center text-[8px] md:text-[9px] font-bold uppercase tracking-[0.6em] md:tracking-[0.8em] animate-pulse" style={{ color: 'var(--muted)' }}>
         {isFlipped ? 'CLOSE_ENVELOPE()' : 'ACCESS_ID_CARD()'}
       </div>
     </div>
