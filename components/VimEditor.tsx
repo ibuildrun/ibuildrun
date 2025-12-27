@@ -217,6 +217,52 @@ const VimEditor: React.FC<VimEditorProps> = ({ filename, initialContent, onExit 
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (mode === 'NORMAL') {
+      // Ctrl combinations first (before preventDefault)
+      if (e.ctrlKey) {
+        e.preventDefault();
+        if (e.key === 'd') {
+          // Ctrl+D - half page down
+          setCursorRow(r => Math.min(lines.length - 1, r + 10));
+        } else if (e.key === 'u') {
+          // Ctrl+U - half page up
+          setCursorRow(r => Math.max(0, r - 10));
+        } else if (e.key === 'f') {
+          // Ctrl+F - page down
+          setCursorRow(r => Math.min(lines.length - 1, r + 20));
+        } else if (e.key === 'b') {
+          // Ctrl+B - page up
+          setCursorRow(r => Math.max(0, r - 20));
+        } else if (e.key === 'e') {
+          // Ctrl+E - scroll down one line
+          setCursorRow(r => Math.min(lines.length - 1, r + 1));
+        } else if (e.key === 'y') {
+          // Ctrl+Y - scroll up one line
+          setCursorRow(r => Math.max(0, r - 1));
+        } else if (e.key === 'g') {
+          // Ctrl+G - show file info
+          showStatus(`"${filename}" ${lines.length} lines`);
+        } else if (e.key === 'r') {
+          // Ctrl+R - redo (not implemented)
+          showStatus('Redo not implemented');
+        } else if (e.key === 'o') {
+          // Ctrl+O - jump back (not implemented)
+          showStatus('Jump list not implemented');
+        } else if (e.key === 'i') {
+          // Ctrl+I - jump forward (not implemented)
+          showStatus('Jump list not implemented');
+        } else if (e.key === '[') {
+          // Ctrl+[ - same as Escape
+          setMode('NORMAL');
+        } else if (e.key === 'c') {
+          // Ctrl+C - cancel/interrupt
+          showStatus('Type :q to quit');
+        } else if (e.key === 'w') {
+          // Ctrl+W - window commands (simplified)
+          showStatus('Window commands not implemented');
+        }
+        return;
+      }
+      
       e.preventDefault();
       
       // Movement
@@ -241,13 +287,14 @@ const VimEditor: React.FC<VimEditorProps> = ({ filename, initialContent, onExit 
       } else if (e.key === '^') {
         const firstNonSpace = currentLine.search(/\S/);
         setCursorCol(firstNonSpace === -1 ? 0 : firstNonSpace);
-      } else if (e.key === 'g' && e.ctrlKey) {
-        // gg - go to first line (handled below with gg)
+      } else if (e.key === 'g') {
+        // gg - go to first line
+        setCursorRow(0);
+        setCursorCol(0);
       } else if (e.key === 'G') {
-        if (e.shiftKey) {
-          setCursorRow(lines.length - 1);
-          setCursorCol(0);
-        }
+        // G - go to last line
+        setCursorRow(lines.length - 1);
+        setCursorCol(0);
       }
       // Insert mode
       else if (e.key === 'i') {
@@ -284,24 +331,20 @@ const VimEditor: React.FC<VimEditorProps> = ({ filename, initialContent, onExit 
       } else if (e.key === 'X') {
         deleteChar(false);
       } else if (e.key === 'd') {
-        // dd - delete line (simplified, just delete current line)
         deleteLine(cursorRow);
       } else if (e.key === 'D') {
-        // Delete to end of line
         const newLines = [...lines];
         newLines[cursorRow] = currentLine.slice(0, cursorCol);
         setLines(newLines);
         setCursorCol(Math.max(0, cursorCol - 1));
         setModified(true);
       } else if (e.key === 'C') {
-        // Change to end of line
         const newLines = [...lines];
         newLines[cursorRow] = currentLine.slice(0, cursorCol);
         setLines(newLines);
         setMode('INSERT');
         setModified(true);
       } else if (e.key === 'c') {
-        // cc - change line
         setYankBuffer([lines[cursorRow]]);
         const newLines = [...lines];
         newLines[cursorRow] = '';
@@ -310,11 +353,9 @@ const VimEditor: React.FC<VimEditorProps> = ({ filename, initialContent, onExit 
         setMode('INSERT');
         setModified(true);
       } else if (e.key === 's') {
-        // Substitute char
         deleteChar(true);
         setMode('INSERT');
       } else if (e.key === 'S') {
-        // Substitute line
         setYankBuffer([lines[cursorRow]]);
         const newLines = [...lines];
         newLines[cursorRow] = '';
@@ -331,7 +372,7 @@ const VimEditor: React.FC<VimEditorProps> = ({ filename, initialContent, onExit 
       } else if (e.key === 'P') {
         pasteLine(false);
       }
-      // Undo (simplified - just show message)
+      // Undo
       else if (e.key === 'u') {
         showStatus('Undo not implemented in this demo');
       }
@@ -377,21 +418,50 @@ const VimEditor: React.FC<VimEditorProps> = ({ filename, initialContent, onExit 
       }
       // Replace single char
       else if (e.key === 'r') {
-        // Next key will replace
         showStatus('-- REPLACE --');
       }
-      // Repeat (simplified)
+      // Repeat
       else if (e.key === '.') {
         showStatus('Repeat not implemented');
       }
-      // Page movement
-      else if (e.key === 'd' && e.ctrlKey) {
-        setCursorRow(r => Math.min(lines.length - 1, r + 10));
-      } else if (e.key === 'u' && e.ctrlKey) {
-        setCursorRow(r => Math.max(0, r - 10));
+      // Escape
+      else if (e.key === 'Escape') {
+        showStatus('');
       }
       
     } else if (mode === 'INSERT') {
+      // Ctrl combinations in INSERT mode
+      if (e.ctrlKey) {
+        e.preventDefault();
+        if (e.key === '[' || e.key === 'c') {
+          // Ctrl+[ or Ctrl+C - exit insert mode
+          setMode('NORMAL');
+          setCursorCol(c => Math.max(0, c - 1));
+        } else if (e.key === 'h') {
+          // Ctrl+H - backspace
+          deleteChar(false);
+        } else if (e.key === 'w') {
+          // Ctrl+W - delete word before cursor
+          let col = cursorCol - 1;
+          const line = lines[cursorRow];
+          while (col > 0 && /\s/.test(line[col])) col--;
+          while (col > 0 && /\w/.test(line[col - 1])) col--;
+          const newLines = [...lines];
+          newLines[cursorRow] = line.slice(0, col) + line.slice(cursorCol);
+          setLines(newLines);
+          setCursorCol(col);
+          setModified(true);
+        } else if (e.key === 'u') {
+          // Ctrl+U - delete to start of line
+          const newLines = [...lines];
+          newLines[cursorRow] = currentLine.slice(cursorCol);
+          setLines(newLines);
+          setCursorCol(0);
+          setModified(true);
+        }
+        return;
+      }
+      
       if (e.key === 'Escape') {
         e.preventDefault();
         setMode('NORMAL');
@@ -416,12 +486,26 @@ const VimEditor: React.FC<VimEditorProps> = ({ filename, initialContent, onExit 
         setCursorRow(r => Math.max(0, r - 1));
       } else if (e.key === 'ArrowDown') {
         setCursorRow(r => Math.min(lines.length - 1, r + 1));
-      } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
+      } else if (e.key.length === 1 && !e.metaKey) {
         e.preventDefault();
         insertChar(e.key);
       }
       
     } else if (mode === 'VISUAL') {
+      // Ctrl combinations in VISUAL mode
+      if (e.ctrlKey) {
+        e.preventDefault();
+        if (e.key === '[' || e.key === 'c') {
+          setMode('NORMAL');
+          setVisualStart(null);
+        } else if (e.key === 'd') {
+          setCursorRow(r => Math.min(lines.length - 1, r + 10));
+        } else if (e.key === 'u') {
+          setCursorRow(r => Math.max(0, r - 10));
+        }
+        return;
+      }
+      
       e.preventDefault();
       if (e.key === 'Escape') {
         setMode('NORMAL');
@@ -435,7 +519,6 @@ const VimEditor: React.FC<VimEditorProps> = ({ filename, initialContent, onExit 
       } else if (e.key === 'k' || e.key === 'ArrowUp') {
         setCursorRow(r => Math.max(0, r - 1));
       } else if (e.key === 'y') {
-        // Yank selection
         if (visualStart) {
           const startRow = Math.min(visualStart.row, cursorRow);
           const endRow = Math.max(visualStart.row, cursorRow);
@@ -445,7 +528,6 @@ const VimEditor: React.FC<VimEditorProps> = ({ filename, initialContent, onExit 
         setMode('NORMAL');
         setVisualStart(null);
       } else if (e.key === 'd') {
-        // Delete selection
         if (visualStart) {
           const startRow = Math.min(visualStart.row, cursorRow);
           const endRow = Math.max(visualStart.row, cursorRow);
@@ -460,7 +542,7 @@ const VimEditor: React.FC<VimEditorProps> = ({ filename, initialContent, onExit 
       }
       
     } else if (mode === 'COMMAND') {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' || (e.ctrlKey && (e.key === '[' || e.key === 'c'))) {
         e.preventDefault();
         setMode('NORMAL');
         setCommand('');
@@ -469,7 +551,7 @@ const VimEditor: React.FC<VimEditorProps> = ({ filename, initialContent, onExit 
         handleVimCommand();
       }
     }
-  }, [mode, maxCol, lines, cursorRow, cursorCol, currentLine, handleVimCommand, visualStart, lastSearch, modified]);
+  }, [mode, maxCol, lines, cursorRow, cursorCol, currentLine, handleVimCommand, visualStart, lastSearch, modified, filename]);
 
   const getContent = () => lines.join('\n');
 
@@ -571,9 +653,9 @@ const VimEditor: React.FC<VimEditorProps> = ({ filename, initialContent, onExit 
 
       {/* Help hint */}
       <div className="px-2 py-1 text-[10px] border-t" style={{ borderColor: 'var(--border)', color: 'var(--muted)' }}>
-        {mode === 'NORMAL' && 'i:insert a:append o:newline dd:delete yy:yank p:paste w:word b:back 0:start $:end :q:quit :wq:save&quit'}
-        {mode === 'INSERT' && 'ESC:normal mode | Type to insert text'}
-        {mode === 'VISUAL' && 'y:yank d:delete ESC:cancel | hjkl:move selection'}
+        {mode === 'NORMAL' && 'i:insert a:append o:newline dd:delete yy:yank p:paste gg:top G:bottom ^D:pgdn ^U:pgup :q:quit'}
+        {mode === 'INSERT' && 'ESC/^[:normal ^W:del-word ^U:del-line ^H:backspace | Type to insert'}
+        {mode === 'VISUAL' && 'y:yank d:delete ESC:cancel ^D:pgdn ^U:pgup | hjkl:move selection'}
         {mode === 'COMMAND' && 'Enter:execute ESC:cancel | :q :wq :w /<search> :<line>'}
       </div>
     </motion.div>
