@@ -45,7 +45,7 @@ const THEMES: Record<string, Record<string, string>> = {
 };
 
 const MainContent: React.FC = () => {
-  const [lang, setLang] = useState<Language>('ru');
+  const [lang, setLang] = useState<Language>('en');
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [isMatrixMode, setIsMatrixMode] = useState(false);

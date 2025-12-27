@@ -29,6 +29,9 @@ out
 # Kiro configuration
 .kiro
 
+# Original Vite project (for comparison only)
+ibuildrun-_-ai-augmented-developer-portfolio
+
 # Documentation
 README.md
 *.md
