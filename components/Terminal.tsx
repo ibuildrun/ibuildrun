@@ -16,6 +16,8 @@ interface TerminalProps {
   onThemeChange: (theme: string) => void;
   onLangChange: (lang: string) => void;
   onAchievement: (title: string) => void;
+  savedCommandHistory?: string[];
+  onCommandHistoryChange?: (history: string[]) => void;
 }
 
 const MOCK_FILES = {
@@ -26,7 +28,7 @@ const MOCK_FILES = {
 };
 
 const AVAILABLE_COMMANDS = [
-  'help', 'whoami', 'ls', 'cat', 'neofetch', 'projects', 'stack', 'socials', 'sudo', 'date', 'clear', 'exit', 'vim', 'git', 'matrix', 'crt', 'theme', 'lang', 'print-pdf'
+  'help', 'whoami', 'ls', 'cat', 'neofetch', 'projects', 'stack', 'socials', 'sudo', 'date', 'clear', 'exit', 'vim', 'git', 'matrix', 'crt', 'theme', 'lang', 'print-pdf', 'history'
 ];
 
 const AVAILABLE_THEMES = ['hacker', 'paper', 'default'];
@@ -40,17 +42,26 @@ const Terminal: React.FC<TerminalProps> = ({
   onCrtToggle, 
   onThemeChange, 
   onLangChange,
-  onAchievement 
+  onAchievement,
+  savedCommandHistory = [],
+  onCommandHistoryChange
 }) => {
   const [input, setInput] = useState('');
   const t = translations[lang];
   const [history, setHistory] = useState<string[]>([t.terminal.welcome, t.terminal.help_hint]);
-  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [commandHistory, setCommandHistory] = useState<string[]>(savedCommandHistory);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [vimFile, setVimFile] = useState<{ name: string; content: string } | null>(null);
   
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Sync with saved command history
+  useEffect(() => {
+    if (savedCommandHistory.length > 0 && commandHistory.length === 0) {
+      setCommandHistory(savedCommandHistory);
+    }
+  }, [savedCommandHistory]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -116,7 +127,11 @@ const Terminal: React.FC<TerminalProps> = ({
       return;
     }
 
-    setCommandHistory(prev => [...prev, fullCommand]);
+    setCommandHistory(prev => {
+      const newHistory = [...prev, fullCommand];
+      onCommandHistoryChange?.(newHistory);
+      return newHistory;
+    });
     setHistoryIndex(-1);
 
     const parts = fullCommand.toLowerCase().split(' ');
@@ -134,6 +149,7 @@ const Terminal: React.FC<TerminalProps> = ({
           '  vim [file]  - Edit/view a file',
           '  ls          - List files',
           '  cat [file]  - Read file',
+          '  history     - Show command history',
           '  print-pdf   - Generate minimalist resume PDF',
           '  matrix      - Toggle Matrix effect',
           '  crt         - Toggle CRT effect',
@@ -198,6 +214,14 @@ const Terminal: React.FC<TerminalProps> = ({
 
       case 'whoami':
         responses = ['ibuildrun // System Architect'];
+        break;
+
+      case 'history':
+        if (commandHistory.length === 0) {
+          responses = [lang === 'ru' ? 'История команд пуста' : 'Command history is empty'];
+        } else {
+          responses = commandHistory.map((cmd, i) => `  ${(i + 1).toString().padStart(3, ' ')}  ${cmd}`);
+        }
         break;
 
       case 'matrix':
