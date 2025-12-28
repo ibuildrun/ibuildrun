@@ -90,7 +90,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
                   className="w-10 h-10 md:w-12 md:h-12 border-2 flex items-center justify-center hover:invert transition-all group"
                   style={{ borderColor: 'var(--border)' }}
                 >
-                  <span className="text-lg group-hover:rotate-90 transition-transform">X</span>
+                  <span className="text-lg group-hover:rotate-90 transition-transform">✕</span>
                 </button>
               </div>
 
