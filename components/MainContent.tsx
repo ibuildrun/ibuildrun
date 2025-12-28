@@ -157,6 +157,60 @@ const MainContent: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Smooth scroll for anchor links
+  useEffect(() => {
+    const smoothScrollTo = (targetY: number, duration: number = 800) => {
+      const startY = window.scrollY;
+      const difference = targetY - startY;
+      const startTime = performance.now();
+
+      const easeInOutCubic = (t: number): number => {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      };
+
+      const animateScroll = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeProgress = easeInOutCubic(progress);
+        
+        window.scrollTo(0, startY + difference * easeProgress);
+
+        if (progress < 1) {
+          requestAnimationFrame(animateScroll);
+        }
+      };
+
+      requestAnimationFrame(animateScroll);
+    };
+
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a[href^="#"]');
+      if (anchor) {
+        const href = anchor.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          if (href === '#') {
+            smoothScrollTo(0);
+            return;
+          }
+          
+          const element = document.querySelector(href);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            const targetY = window.scrollY + rect.top;
+            smoothScrollTo(targetY);
+          }
+        }
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick, true);
+    return () => document.removeEventListener('click', handleAnchorClick, true);
+  }, []);
+
   return (
     <div className={`relative min-h-screen overflow-x-hidden font-mono text-xs md:text-sm transition-colors duration-500 ${isCrtOn ? 'crt-effect' : ''}`}>
       <ResumePrintView lang={lang} />
