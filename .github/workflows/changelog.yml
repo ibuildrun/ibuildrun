@@ -93,8 +93,15 @@ jobs:
           # Create new CHANGELOG content
           HEADER="# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n"
           
-          # Get existing content after header (skip first 7 lines)
-          EXISTING=$(tail -n +8 CHANGELOG.md)
+          # Get existing content, skip header and old Unreleased section
+          # Find line number of first versioned release (## [X.Y.Z])
+          FIRST_VERSION_LINE=$(grep -n "^## \[[0-9]" CHANGELOG.md | head -1 | cut -d: -f1)
+          
+          if [ -n "$FIRST_VERSION_LINE" ]; then
+            EXISTING=$(tail -n +${FIRST_VERSION_LINE} CHANGELOG.md)
+          else
+            EXISTING=""
+          fi
           
           # Write new CHANGELOG
           echo -e "${HEADER}${NEW_ENTRY}${EXISTING}" > CHANGELOG.md
