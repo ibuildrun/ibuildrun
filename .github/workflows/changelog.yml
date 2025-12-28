@@ -1,4 +1,4 @@
-name: Update Changelog
+﻿name: Update Changelog
 
 on:
   push:
@@ -11,6 +11,7 @@ permissions:
 jobs:
   changelog:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,35 +19,23 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get current date
-        id: date
-        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-
-      - name: Get commit messages since last tag
-        id: commits
+      - name: Update CHANGELOG.md
+        shell: bash
         run: |
+          DATE=$(date +'%Y-%m-%d')
           LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          
           if [ -z "$LAST_TAG" ]; then
             COMMITS=$(git log --pretty=format:"- %s" --no-merges HEAD~10..HEAD 2>/dev/null || git log --pretty=format:"- %s" --no-merges -10)
           else
             COMMITS=$(git log --pretty=format:"- %s" --no-merges ${LAST_TAG}..HEAD)
           fi
-          echo "commits<<EOF" >> $GITHUB_OUTPUT
-          echo "$COMMITS" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-      - name: Update CHANGELOG.md
-        run: |
-          DATE="${{ steps.date.outputs.date }}"
-          COMMITS="${{ steps.commits.outputs.commits }}"
           
-          # Skip if no new commits
           if [ -z "$COMMITS" ]; then
             echo "No new commits to add"
             exit 0
           fi
           
-          # Categorize commits
           ADDED=""
           CHANGED=""
           FIXED=""
@@ -54,57 +43,35 @@ jobs:
           OTHER=""
           
           while IFS= read -r line; do
-            if [[ "$line" == *"feat:"* ]] || [[ "$line" == *"add:"* ]]; then
-              ADDED="${ADDED}${line}\n"
-            elif [[ "$line" == *"fix:"* ]]; then
-              FIXED="${FIXED}${line}\n"
-            elif [[ "$line" == *"remove:"* ]] || [[ "$line" == *"delete:"* ]]; then
-              REMOVED="${REMOVED}${line}\n"
-            elif [[ "$line" == *"change:"* ]] || [[ "$line" == *"update:"* ]] || [[ "$line" == *"refactor:"* ]]; then
-              CHANGED="${CHANGED}${line}\n"
-            else
-              OTHER="${OTHER}${line}\n"
-            fi
+            case "$line" in
+              *feat:*|*add:*) ADDED="${ADDED}${line}"$'\n' ;;
+              *fix:*) FIXED="${FIXED}${line}"$'\n' ;;
+              *remove:*|*delete:*) REMOVED="${REMOVED}${line}"$'\n' ;;
+              *change:*|*update:*|*refactor:*) CHANGED="${CHANGED}${line}"$'\n' ;;
+              *) OTHER="${OTHER}${line}"$'\n' ;;
+            esac
           done <<< "$COMMITS"
           
-          # Build new entry
-          NEW_ENTRY="## [Unreleased] - ${DATE}\n\n"
-          
-          if [ -n "$ADDED" ]; then
-            NEW_ENTRY="${NEW_ENTRY}### Added\n${ADDED}\n"
-          fi
-          
-          if [ -n "$CHANGED" ]; then
-            NEW_ENTRY="${NEW_ENTRY}### Changed\n${CHANGED}\n"
-          fi
-          
-          if [ -n "$FIXED" ]; then
-            NEW_ENTRY="${NEW_ENTRY}### Fixed\n${FIXED}\n"
-          fi
-          
-          if [ -n "$REMOVED" ]; then
-            NEW_ENTRY="${NEW_ENTRY}### Removed\n${REMOVED}\n"
-          fi
-          
-          if [ -n "$OTHER" ]; then
-            NEW_ENTRY="${NEW_ENTRY}### Other\n${OTHER}\n"
-          fi
-          
-          # Create new CHANGELOG content
-          HEADER="# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n"
-          
-          # Get existing content, skip header and old Unreleased section
-          # Find line number of first versioned release (## [X.Y.Z])
-          FIRST_VERSION_LINE=$(grep -n "^## \[[0-9]" CHANGELOG.md | head -1 | cut -d: -f1)
-          
-          if [ -n "$FIRST_VERSION_LINE" ]; then
-            EXISTING=$(tail -n +${FIRST_VERSION_LINE} CHANGELOG.md)
-          else
-            EXISTING=""
-          fi
-          
-          # Write new CHANGELOG
-          echo -e "${HEADER}${NEW_ENTRY}${EXISTING}" > CHANGELOG.md
+          {
+            echo "# Changelog"
+            echo ""
+            echo "All notable changes to this project will be documented in this file."
+            echo ""
+            echo "The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),"
+            echo "and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)."
+            echo ""
+            echo "## [Unreleased] - ${DATE}"
+            echo ""
+            [ -n "$ADDED" ] && { echo "### Added"; printf '%s' "$ADDED"; echo ""; }
+            [ -n "$CHANGED" ] && { echo "### Changed"; printf '%s' "$CHANGED"; echo ""; }
+            [ -n "$FIXED" ] && { echo "### Fixed"; printf '%s' "$FIXED"; echo ""; }
+            [ -n "$REMOVED" ] && { echo "### Removed"; printf '%s' "$REMOVED"; echo ""; }
+            [ -n "$OTHER" ] && { echo "### Other"; printf '%s' "$OTHER"; echo ""; }
+            
+            FIRST_VERSION_LINE=$(grep -n "^## \[[0-9]" CHANGELOG.md | head -1 | cut -d: -f1)
+            [ -n "$FIRST_VERSION_LINE" ] && tail -n +${FIRST_VERSION_LINE} CHANGELOG.md
+          } > CHANGELOG.md.new
+          mv CHANGELOG.md.new CHANGELOG.md
 
       - name: Commit changes
         run: |
