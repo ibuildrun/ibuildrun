@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2025-12-28
+
+### Added
+- feat: add automatic CHANGELOG workflow, update to v3.2.0
+- feat: comprehensive SEO with multilingual support
+- feat: replace portfolio with zapret-discord-youtube fork
+- feat: smooth scroll animation for anchor links, real GitHub repos in portfolio
+- feat: add mobile-friendly quick command buttons for terminal
+- feat: replace mock projects with real GitHub repositories
+
+### Fixed
+- fix: update project years to 2025
+- fix: print-pdf portrait layout, dynamic year, remove email
+- fix: compact terminal output for mobile devices
+- fix: remove emojis from terminal, add kiro steering rules
+- fix: set GITHUB_PAGES env for correct basePath on GitHub Pages
+- fix: add extra URL validation before caching in service worker
+- fix: skip non-http requests in service worker
+
 ## [Unreleased]
 
 ## [3.2.0] - 2025-12-28
