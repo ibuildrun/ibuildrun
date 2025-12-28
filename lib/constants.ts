@@ -88,18 +88,18 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "0x04",
-    title: "IBUILDRUN_PORTFOLIO",
-    category: { ru: "ПОРТФОЛИО", en: "PORTFOLIO" },
+    title: "ZAPRET_DISCORD_YOUTUBE",
+    category: { ru: "УТИЛИТА", en: "UTILITY" },
     year: "2025",
     description: { 
-      ru: "AI-Augmented Developer Portfolio. Терминальный интерфейс, PWA, Docker.", 
-      en: "AI-Augmented Developer Portfolio. Terminal interface, PWA, Docker." 
+      ru: "zapret-discord-youtube с графическим интерфейсом. Форк с GUI для удобного управления.", 
+      en: "zapret-discord-youtube with GUI. Fork with graphical interface for easy management." 
     },
     detailedDescription: {
-      ru: "Персональный сайт-портфолио с терминальным интерфейсом. Встроенный vim-редактор, матричный эффект, темы оформления. PWA с оффлайн-поддержкой, деплой через Docker и Tuna.",
-      en: "Personal portfolio website with terminal interface. Built-in vim editor, matrix effect, theme customization. PWA with offline support, deployed via Docker and Tuna."
+      ru: "Форк проекта zapret-discord-youtube с добавлением графического интерфейса. Позволяет удобно управлять настройками обхода блокировок Discord и YouTube без использования командной строки.",
+      en: "Fork of zapret-discord-youtube project with added graphical interface. Allows convenient management of Discord and YouTube bypass settings without using command line."
     },
-    stack: ["Next.js", "TypeScript", "Tailwind", "Docker"],
-    link: "https://github.com/ibuildrun/ibuildrun"
+    stack: ["Python", "PyQt", "Windows", "Networking"],
+    link: "https://github.com/ibuildrun/zapret-discord-youtube"
   }
 ];
