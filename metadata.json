@@ -1,5 +1,23 @@
 {
-  "name": "ibuildrun | AI-Augmented Developer Portfolio",
-  "description": "A high-performance, monochrome developer portfolio for ibuildrun, featuring cyber-minimalist aesthetics, 3D interactions, and AI-augmented workflow visualizations.",
+  "name": "IBUILDRUN | Full-Stack Developer & Software Architect",
+  "short_name": "IBUILDRUN",
+  "description": "Full-Stack Software Engineer & Architect. Specializing in Next.js, React, TypeScript, .NET, and AI-augmented development.",
+  "description_ru": "Full-Stack разработчик и архитектор ПО. Специализация: Next.js, React, TypeScript, .NET и AI-разработка.",
+  "author": "ibuildrun",
+  "url": "https://ibuildrun.ru",
+  "keywords": [
+    "full-stack developer",
+    "software architect", 
+    "react developer",
+    "nextjs developer",
+    "typescript",
+    "dotnet developer",
+    "fullstack разработчик",
+    "веб разработка"
+  ],
+  "social": {
+    "github": "https://github.com/ibuildrun",
+    "telegram": "https://t.me/ibuildrun"
+  },
   "requestFramePermissions": []
 }

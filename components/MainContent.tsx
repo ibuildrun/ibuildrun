@@ -15,6 +15,7 @@ import Philosophy from './Philosophy';
 import Workflow from './Workflow';
 import AchievementToast from './AchievementToast';
 import ResumePrintView from './ResumePrintView';
+import SEOHead from './SEOHead';
 import { TECH_STACK } from '@/lib/constants';
 import { useKonami } from '@/hooks/useKonami';
 import { translations, Language } from '@/lib/translations';
@@ -213,6 +214,7 @@ const MainContent: React.FC = () => {
 
   return (
     <div className={`relative min-h-screen overflow-x-hidden font-mono text-xs md:text-sm transition-colors duration-500 ${isCrtOn ? 'crt-effect' : ''}`}>
+      <SEOHead lang={lang} />
       <ResumePrintView lang={lang} />
       
       <div className="no-print">

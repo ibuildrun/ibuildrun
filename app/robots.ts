@@ -2,14 +2,26 @@ import type { MetadataRoute } from 'next';
 
 export const dynamic = 'force-static';
 
-export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://ibuildrun.github.io/ibuildrun';
+const BASE_URL = 'https://ibuildrun.ru';
 
+export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-    },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: ['/api/', '/_next/', '/static/'],
+      },
+      {
+        userAgent: 'Googlebot',
+        allow: '/',
+      },
+      {
+        userAgent: 'Yandexbot',
+        allow: '/',
+      },
+    ],
+    sitemap: `${BASE_URL}/sitemap.xml`,
+    host: BASE_URL,
   };
 }
