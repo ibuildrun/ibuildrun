@@ -57,7 +57,7 @@ jobs:
         with:
           tag_name: v${{ steps.package-version.outputs.version }}
           name: v${{ steps.package-version.outputs.version }}
-          body_path: CHANGELOG.md
+          generate_release_notes: true
           draft: false
           prerelease: false
         env:
