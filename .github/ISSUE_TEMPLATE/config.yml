@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Telegram
+    url: https://t.me/ibuildrun
+    about: Contact me directly on Telegram
+  - name: GitHub Discussions
+    url: https://github.com/ibuildrun/ibuildrun/discussions
+    about: Ask questions and discuss ideas

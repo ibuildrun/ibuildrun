@@ -1,0 +1,55 @@
+name: Commit Lint
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate commit messages
+        run: |
+          # Get commits to check
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            COMMITS=$(git log --format="%s" origin/${{ github.base_ref }}..${{ github.sha }})
+          else
+            COMMITS="${{ github.event.head_commit.message }}"
+          fi
+          
+          # Conventional commit pattern
+          PATTERN="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?: .+"
+          
+          FAILED=0
+          while IFS= read -r commit; do
+            # Skip merge commits and [skip ci] commits
+            if [[ "$commit" == Merge* ]] || [[ "$commit" == *"[skip ci]"* ]]; then
+              continue
+            fi
+            
+            if ! [[ "$commit" =~ $PATTERN ]]; then
+              echo "[DENIED] Invalid commit: $commit"
+              echo "Expected format: type(scope): description"
+              echo "Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+              FAILED=1
+            else
+              echo "[OK] Valid commit: $commit"
+            fi
+          done <<< "$COMMITS"
+          
+          if [ $FAILED -eq 1 ]; then
+            exit 1
+          fi
