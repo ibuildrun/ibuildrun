@@ -42,7 +42,7 @@ export const PROJECTS: Project[] = [
     id: "0x01",
     title: "HQSTUDIO",
     category: { ru: "ENTERPRISE_CRM", en: "ENTERPRISE_CRM" },
-    year: "2024",
+    year: "2025",
     description: { 
       ru: "HQ Studio - Premium Auto Tuning CRM System. Web + Desktop + API монорепо.", 
       en: "HQ Studio - Premium Auto Tuning CRM System. Web + Desktop + API monorepo." 
@@ -58,7 +58,7 @@ export const PROJECTS: Project[] = [
     id: "0x02",
     title: "INSTRUCT_PIX2PIX_STUDIO",
     category: { ru: "AI_РЕДАКТОР", en: "AI_EDITOR" },
-    year: "2024",
+    year: "2025",
     description: { 
       ru: "AI-редактор изображений с InstructPix2Pix. Современный glassmorphism UI.", 
       en: "AI-powered image editor with InstructPix2Pix. Modern glassmorphism UI." 
@@ -74,7 +74,7 @@ export const PROJECTS: Project[] = [
     id: "0x03",
     title: "TIC_TAC_TOE_PASTEL",
     category: { ru: "TELEGRAM_APP", en: "TELEGRAM_APP" },
-    year: "2024",
+    year: "2025",
     description: { 
       ru: "Уютная пастельная игра в крестики-нолики - Telegram Mini App с геймификацией.", 
       en: "Cozy pastel Tic-Tac-Toe game - Telegram Mini App with gamification." 
@@ -90,7 +90,7 @@ export const PROJECTS: Project[] = [
     id: "0x04",
     title: "IBUILDRUN_PORTFOLIO",
     category: { ru: "ПОРТФОЛИО", en: "PORTFOLIO" },
-    year: "2024",
+    year: "2025",
     description: { 
       ru: "AI-Augmented Developer Portfolio. Терминальный интерфейс, PWA, Docker.", 
       en: "AI-Augmented Developer Portfolio. Terminal interface, PWA, Docker." 
