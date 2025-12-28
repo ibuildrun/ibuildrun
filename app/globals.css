@@ -177,12 +177,15 @@ body {
     display: none !important;
   }
 
-  body {
+  html, body {
     background-color: white !important;
     color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   @page {
+    size: A4 portrait;
     margin: 0;
   }
 }

@@ -12,21 +12,21 @@ const ResumePrintView: React.FC<ResumePrintViewProps> = ({ lang }) => {
   const t = translations[lang];
 
   return (
-    <div className="hidden print:block bg-white text-black p-12 font-mono text-[10pt] leading-snug max-w-4xl mx-auto min-h-screen">
-      <header className="border-b-4 border-black pb-8 mb-10 flex justify-between items-end">
+    <div className="hidden print:block bg-white text-black p-8 font-mono text-[9pt] leading-snug max-w-4xl mx-auto" style={{ minHeight: '297mm', maxHeight: '297mm' }}>
+      <header className="border-b-4 border-black pb-6 mb-8 flex justify-between items-end">
         <div>
           <h1 className="text-5xl font-bold tracking-tighter uppercase mb-2">IBUILDRUN</h1>
           <p className="text-sm font-bold tracking-[0.3em] uppercase opacity-70">LEAD SOFTWARE ENGINEER / ARCHITECT</p>
         </div>
         <div className="text-right text-[9pt] font-bold uppercase tracking-widest leading-relaxed">
-          <p>hi@ibuildrun.com</p>
+          <p>t.me/ibuildrun</p>
           <p>github.com/ibuildrun</p>
-          <p>2024.Q4_ARCH_CORE</p>
+          <p>{new Date().getFullYear()}.Q4_ARCH_CORE</p>
         </div>
       </header>
 
-      <div className="grid grid-cols-3 gap-12">
-        <div className="col-span-2 space-y-12">
+      <div className="grid grid-cols-3 gap-8">
+        <div className="col-span-2 space-y-8">
           <section>
             <h2 className="text-sm font-bold uppercase tracking-[0.5em] border-b-2 border-black mb-4 pb-1">MANIFESTO // EXEC_SUMMARY</h2>
             <p className="uppercase tracking-tight leading-relaxed font-bold">
@@ -35,8 +35,8 @@ const ResumePrintView: React.FC<ResumePrintViewProps> = ({ lang }) => {
           </section>
 
           <section>
-            <h2 className="text-sm font-bold uppercase tracking-[0.5em] border-b-2 border-black mb-6 pb-1">EXPERIENCE // SELECTED_SYSTEMS</h2>
-            <div className="space-y-8">
+            <h2 className="text-sm font-bold uppercase tracking-[0.5em] border-b-2 border-black mb-4 pb-1">EXPERIENCE // SELECTED_SYSTEMS</h2>
+            <div className="space-y-6">
               {PROJECTS.map(project => (
                 <div key={project.id} className="relative pl-6 border-l-2 border-black">
                   <div className="flex justify-between items-center mb-1">
@@ -58,7 +58,7 @@ const ResumePrintView: React.FC<ResumePrintViewProps> = ({ lang }) => {
           </section>
         </div>
 
-        <div className="space-y-12">
+        <div className="space-y-8">
           <section>
             <h2 className="text-sm font-bold uppercase tracking-[0.5em] border-b-2 border-black mb-4 pb-1">STACK // CORE</h2>
             <div className="space-y-4">
@@ -96,7 +96,7 @@ const ResumePrintView: React.FC<ResumePrintViewProps> = ({ lang }) => {
         </div>
       </div>
 
-      <footer className="mt-20 pt-8 border-t border-black text-center text-[8pt] font-bold uppercase tracking-[1em] opacity-40">
+      <footer className="mt-12 pt-6 border-t border-black text-center text-[8pt] font-bold uppercase tracking-[1em] opacity-40">
         IBUILDRUN // ARCH_BY_DESIGN
       </footer>
     </div>
