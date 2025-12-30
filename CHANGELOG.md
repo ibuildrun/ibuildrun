@@ -11,8 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: add CSS class obfuscation for production builds
 
 ### Fixed
+- fix: portfolio modal scroll lock and z-index
 - fix: repair changelog workflow script
 - fix: change changelog and version-bump to manual triggers due to branch protection
+- fix: rewrite changelog workflow to avoid interpolation issues
+
+### Other
+- docs: update CHANGELOG with recent changes
 
 ## [3.2.0] - 2025-12-28
 
