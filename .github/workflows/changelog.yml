@@ -43,11 +43,11 @@ jobs:
           
           while IFS= read -r line; do
             case "$line" in
-              *feat:*|*add:*) ADDED="${ADDED}${line}"$'\n' ;;
-              *fix:*) FIXED="${FIXED}${line}"$'\n' ;;
-              *remove:*|*delete:*) REMOVED="${REMOVED}${line}"$'\n' ;;
-              *change:*|*update:*|*refactor:*) CHANGED="${CHANGED}${line}"$'\n' ;;
-              *) OTHER="${OTHER}${line}"$'\n' ;;
+              *feat:*|*add:*) ADDED="${ADDED}${line}\n" ;;
+              *fix:*) FIXED="${FIXED}${line}\n" ;;
+              *remove:*|*delete:*) REMOVED="${REMOVED}${line}\n" ;;
+              *change:*|*update:*|*refactor:*) CHANGED="${CHANGED}${line}\n" ;;
+              *) OTHER="${OTHER}${line}\n" ;;
             esac
           done <<< "$COMMITS"
           
@@ -61,11 +61,11 @@ jobs:
             echo ""
             echo "## [Unreleased] - ${DATE}"
             echo ""
-            [ -n "$ADDED" ] && { echo "### Added"; printf '%s' "$ADDED"; echo ""; }
-            [ -n "$CHANGED" ] && { echo "### Changed"; printf '%s' "$CHANGED"; echo ""; }
-            [ -n "$FIXED" ] && { echo "### Fixed"; printf '%s' "$FIXED"; echo ""; }
-            [ -n "$REMOVED" ] && { echo "### Removed"; printf '%s' "$REMOVED"; echo ""; }
-            [ -n "$OTHER" ] && { echo "### Other"; printf '%s' "$OTHER"; echo ""; }
+            [ -n "$ADDED" ] && { echo "### Added"; printf '%b' "$ADDED"; echo ""; }
+            [ -n "$CHANGED" ] && { echo "### Changed"; printf '%b' "$CHANGED"; echo ""; }
+            [ -n "$FIXED" ] && { echo "### Fixed"; printf '%b' "$FIXED"; echo ""; }
+            [ -n "$REMOVED" ] && { echo "### Removed"; printf '%b' "$REMOVED"; echo ""; }
+            [ -n "$OTHER" ] && { echo "### Other"; printf '%b' "$OTHER"; echo ""; }
             
             FIRST_VERSION_LINE=$(grep -n "^## \[[0-9]" CHANGELOG.md | head -1 | cut -d: -f1)
             [ -n "$FIRST_VERSION_LINE" ] && tail -n +${FIRST_VERSION_LINE} CHANGELOG.md
