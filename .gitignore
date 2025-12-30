@@ -30,6 +30,9 @@ out/
 # Vercel
 .vercel
 
+# CSS Obfuscator
+css-obfuscator/
+
 # Kiro
 .kiro/
 

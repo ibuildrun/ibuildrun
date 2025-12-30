@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "next dev --port 3000",
     "build": "next build",
+    "obfuscate": "next-css-obfuscator && node scripts/obfuscate-out.js",
+    "build:prod": "next build && next-css-obfuscator && node scripts/obfuscate-out.js",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install"
@@ -26,6 +28,7 @@
     "eslint": "^9.0.0",
     "eslint-config-next": "^15.1.0",
     "husky": "^9.0.0",
+    "next-css-obfuscator": "^3.0.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.0",
     "typescript": "~5.8.2"
