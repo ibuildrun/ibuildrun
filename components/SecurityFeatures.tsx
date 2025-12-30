@@ -288,32 +288,6 @@ export default function SecurityFeatures() {
         </div>
       )}
 
-      {/* Honeypot links - invisible to users, bots will follow them */}
-      <a 
-        href="/admin" 
-        style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}
-        tabIndex={-1}
-        aria-hidden="true"
-      >
-        Admin
-      </a>
-      <a 
-        href="/wp-admin" 
-        style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}
-        tabIndex={-1}
-        aria-hidden="true"
-      >
-        WordPress
-      </a>
-      <a 
-        href="/.env" 
-        style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}
-        tabIndex={-1}
-        aria-hidden="true"
-      >
-        Config
-      </a>
-
       {/* CSS for animations */}
       <style jsx global>{`
         @keyframes breach-flash {
