@@ -69,8 +69,7 @@ export default function SecurityFeatures() {
   const [breachText, setBreachText] = useState('');
 
   useEffect(() => {
-    // Console easter egg
-    console.clear();
+    // Console easter egg (no clear - blocked when "Preserve log" is on)
     console.log(
       ASCII_LOGO,
       'color: #00ff00; font-family: monospace; font-size: 10px;'
@@ -172,24 +171,47 @@ export default function SecurityFeatures() {
       }
     };
 
-    // DevTools detection
-    let devToolsOpen = false;
-    const threshold = 160;
+    // DevTools detection - more reliable method using debugger timing
+    let devToolsAlerted = false;
     
-    const checkDevTools = () => {
-      const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-      const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+    const detectDevTools = () => {
+      if (devToolsAlerted) return;
       
-      if ((widthThreshold || heightThreshold) && !devToolsOpen) {
-        devToolsOpen = true;
+      const start = performance.now();
+      // debugger statement takes longer when DevTools is open
+      // eslint-disable-next-line no-debugger
+      debugger;
+      const end = performance.now();
+      
+      if (end - start > 100) {
+        devToolsAlerted = true;
         console.log('%c[DEVTOOLS DETECTED]', 'color: #ff0000; font-size: 14px; font-weight: bold;');
         console.log('%c> I see you opened DevTools. Curious one, aren\'t you?', 'color: #888888;');
         console.log('%c> Type ibuildrun.help() for available commands.', 'color: #00ff00;');
       }
     };
 
-    window.addEventListener('resize', checkDevTools);
-    checkDevTools();
+    // Also check window size difference (fallback)
+    const checkWindowSize = () => {
+      if (devToolsAlerted) return;
+      
+      const threshold = 160;
+      const widthDiff = window.outerWidth - window.innerWidth > threshold;
+      const heightDiff = window.outerHeight - window.innerHeight > threshold;
+      
+      if (widthDiff || heightDiff) {
+        devToolsAlerted = true;
+        console.log('%c[DEVTOOLS DETECTED]', 'color: #ff0000; font-size: 14px; font-weight: bold;');
+        console.log('%c> I see you opened DevTools. Curious one, aren\'t you?', 'color: #888888;');
+        console.log('%c> Type ibuildrun.help() for available commands.', 'color: #00ff00;');
+      }
+    };
+
+    // Check on resize
+    window.addEventListener('resize', checkWindowSize);
+    
+    // Initial check after small delay
+    setTimeout(checkWindowSize, 1000);
 
     // Anti-copy: add watermark when copying text
     const handleCopy = (e: ClipboardEvent) => {
@@ -227,7 +249,7 @@ export default function SecurityFeatures() {
     document.addEventListener('keydown', handleKeydown);
 
     return () => {
-      window.removeEventListener('resize', checkDevTools);
+      window.removeEventListener('resize', checkWindowSize);
       document.removeEventListener('copy', handleCopy);
       document.removeEventListener('keydown', handleKeydown);
       delete (window as any).ibuildrun;
