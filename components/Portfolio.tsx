@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Project } from '@/lib/types';
 import { PROJECTS } from '@/lib/constants';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,6 +13,18 @@ interface PortfolioProps {
 const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const t = translations[lang];
+
+  // Block body scroll when modal is open
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedProject]);
 
   return (
     <section id="projects" className="min-h-screen py-24 md:py-48 px-4 md:px-24 z-10 relative border-t" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)' }}>
@@ -67,37 +79,38 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
 
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-[1000] flex items-center justify-center p-2 md:p-12">
+          <div 
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-12"
+            onClick={() => setSelectedProject(null)}
+          >
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/95 backdrop-blur-2xl"
-              onClick={() => setSelectedProject(null)}
-            ></motion.div>
+              className="absolute inset-0 bg-black/95"
+            />
             
             <motion.div 
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="relative w-full max-w-6xl border-2 md:border-4 max-h-[90vh] overflow-y-auto shadow-2xl"
-              style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--fg)' }}
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-4xl border-2 max-h-[85vh] overflow-y-auto shadow-2xl bg-white text-black"
             >
-              <div className="sticky top-0 bg-transparent backdrop-blur-md border-b-2 p-4 md:p-8 flex justify-between items-center z-20" style={{ borderColor: 'var(--border)' }}>
-                <span className="font-mono text-[8px] md:text-[9px] opacity-60 uppercase tracking-[0.3em] md:tracking-[0.5em] font-bold">{t.portfolio.readout} // {selectedProject.id}</span>
-                <button 
-                  onClick={() => setSelectedProject(null)}
-                  className="w-10 h-10 md:w-12 md:h-12 border-2 flex items-center justify-center hover:invert transition-all group"
-                  style={{ borderColor: 'var(--border)' }}
-                >
-                  <span className="text-lg group-hover:rotate-90 transition-transform">✕</span>
-                </button>
-              </div>
+              {/* Close button */}
+              <button 
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 border-2 border-black flex items-center justify-center hover:bg-black hover:text-white transition-all z-10"
+              >
+                <span className="text-lg">✕</span>
+              </button>
 
-              <div className="p-6 md:p-20 space-y-10 md:space-y-16">
-                <div className="space-y-4 md:space-y-6">
-                  <h2 className="text-3xl md:text-8xl font-bold tracking-tighter uppercase leading-tight md:leading-none break-words">{selectedProject.title}</h2>
-                  <div className="flex flex-wrap gap-4 md:gap-6 text-[9px] md:text-[10px] font-mono opacity-60 uppercase tracking-[0.3em] md:tracking-[0.4em] font-bold">
+              <div className="p-8 md:p-16 space-y-8 md:space-y-12">
+                {/* Title */}
+                <div className="space-y-4 pr-12">
+                  <h2 className="text-4xl md:text-7xl font-bold tracking-tighter uppercase leading-none break-words">{selectedProject.title}</h2>
+                  <div className="flex flex-wrap gap-4 text-[9px] md:text-[10px] font-mono opacity-60 uppercase tracking-[0.3em] font-bold">
                     <span>{selectedProject.category[lang]}</span>
                     <span>/</span>
                     <span>{selectedProject.year}</span>
@@ -106,33 +119,33 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
-                  <div className="md:col-span-2 space-y-6 md:space-y-8">
-                    <h4 className="text-[9px] md:text-[10px] font-mono uppercase opacity-60 tracking-[0.5em] md:tracking-[0.6em] border-l-4 pl-4 font-bold" style={{ borderColor: 'var(--border)' }}>{t.portfolio.case_study}</h4>
-                    <p className="text-base md:text-2xl leading-relaxed opacity-80 uppercase tracking-tighter font-bold">
+                {/* Content */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                  <div className="md:col-span-2 space-y-4">
+                    <h4 className="text-[9px] md:text-[10px] font-mono uppercase opacity-40 tracking-[0.4em] border-l-4 border-black pl-4 font-bold">{t.portfolio.case_study}</h4>
+                    <p className="text-sm md:text-lg leading-relaxed uppercase tracking-tight font-bold">
                       {selectedProject.detailedDescription[lang]}
                     </p>
                   </div>
-                  <div className="space-y-8 md:space-y-12">
-                    <div className="space-y-4 md:space-y-6">
-                      <h4 className="text-[9px] md:text-[10px] font-mono uppercase opacity-60 tracking-[0.5em] md:tracking-[0.6em] font-bold">{t.portfolio.dependencies}</h4>
-                      <div className="flex flex-wrap gap-2 md:gap-3">
+                  <div className="space-y-8">
+                    <div className="space-y-4">
+                      <h4 className="text-[9px] md:text-[10px] font-mono uppercase opacity-40 tracking-[0.4em] font-bold">{t.portfolio.dependencies}</h4>
+                      <div className="flex flex-wrap gap-2">
                         {selectedProject.stack.map(s => (
-                          <span key={s} className="px-3 py-1 md:px-4 md:py-2 border-2 text-[9px] md:text-[10px] font-bold uppercase tracking-widest" style={{ borderColor: 'var(--border)' }}>
+                          <span key={s} className="px-3 py-1 border-2 border-black text-[9px] md:text-[10px] font-bold uppercase tracking-widest">
                             {s}
                           </span>
                         ))}
                       </div>
                     </div>
                     {selectedProject.link && (
-                      <div className="space-y-4 md:space-y-6">
-                        <h4 className="text-[9px] md:text-[10px] font-mono uppercase opacity-60 tracking-[0.5em] md:tracking-[0.6em] font-bold">{t.portfolio.access_point}</h4>
+                      <div className="space-y-4">
+                        <h4 className="text-[9px] md:text-[10px] font-mono uppercase opacity-40 tracking-[0.4em] font-bold">{t.portfolio.access_point}</h4>
                         <a 
                           href={selectedProject.link} 
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center w-full px-6 py-4 md:px-8 md:py-5 font-bold uppercase text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] hover:invert border-2 transition-all"
-                          style={{ backgroundColor: 'var(--fg)', color: 'var(--bg)', borderColor: 'var(--fg)' }}
+                          className="flex items-center justify-center w-full px-6 py-4 font-bold uppercase text-[9px] md:text-[10px] tracking-[0.4em] bg-black text-white hover:bg-white hover:text-black border-2 border-black transition-all"
                         >
                           {t.portfolio.open_source}
                         </a>
