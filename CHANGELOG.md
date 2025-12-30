@@ -5,10 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2025-12-28
+## [Unreleased] - 2025-12-30
+
+### Added
+- feat: add CSS class obfuscation for production builds
 
 ### Fixed
-- fix: changelog workflow to prevent duplicate Unreleased sections
+- fix: repair changelog workflow script
+- fix: change changelog and version-bump to manual triggers due to branch protection
 
 ## [3.2.0] - 2025-12-28
 
