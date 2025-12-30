@@ -27,7 +27,24 @@ const BackgroundGrid: React.FC<BackgroundGridProps> = ({ isMatrixMode = false })
     // Matrix characters
     const matrixChars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF';
 
-    const draw = () => {
+    // Delta-time based animation for consistent speed across all refresh rates
+    let lastFrameTime = 0;
+    
+    // Speed constants (pixels per second at base)
+    const matrixSpeed = 20; // drops per second in matrix mode
+    const binarySpeed = 30; // drops per second in normal mode
+
+    const draw = (currentTime: number = 0) => {
+      animationFrame = requestAnimationFrame(draw);
+      
+      // Calculate delta time in seconds
+      if (lastFrameTime === 0) lastFrameTime = currentTime;
+      const deltaTime = (currentTime - lastFrameTime) / 1000;
+      lastFrameTime = currentTime;
+      
+      // Cap delta to prevent huge jumps (e.g., when tab is inactive)
+      const cappedDelta = Math.min(deltaTime, 0.1);
+
       if (isMatrixMode) {
         // Matrix mode - dark fade for trail effect
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
@@ -53,8 +70,8 @@ const BackgroundGrid: React.FC<BackgroundGridProps> = ({ isMatrixMode = false })
             drops[i] = 0;
           }
 
-          // Slower fall speed like in the movie
-          drops[i] += 0.33;
+          // Delta-time based movement - consistent speed regardless of refresh rate
+          drops[i] += matrixSpeed * cappedDelta;
         }
       } else {
         // Normal mode - subtle grid
@@ -94,14 +111,14 @@ const BackgroundGrid: React.FC<BackgroundGridProps> = ({ isMatrixMode = false })
             drops[i] = 0;
           }
           
-          drops[i] += 0.5;
+          // Delta-time based movement
+          drops[i] += binarySpeed * cappedDelta;
         }
       }
 
-      animationFrame = requestAnimationFrame(draw);
     };
 
-    draw();
+    animationFrame = requestAnimationFrame(draw);
 
     const handleResize = () => {
       width = canvas.width = window.innerWidth;

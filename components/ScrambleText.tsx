@@ -23,7 +23,20 @@ const ScrambleText: React.FC<ScrambleTextProps> = ({ text, className, trigger = 
   useEffect(() => {
     if (!trigger || !mounted) return;
 
-    const scramble = () => {
+    // FPS throttling - lock to 60 FPS for high refresh rate monitors
+    const targetFPS = 60;
+    const frameInterval = 1000 / targetFPS;
+    let lastFrameTime = 0;
+
+    const scramble = (currentTime: number = 0) => {
+      // Skip frame if not enough time has passed
+      const deltaTime = currentTime - lastFrameTime;
+      if (deltaTime < frameInterval) {
+        frameRef.current = requestAnimationFrame(scramble);
+        return;
+      }
+      lastFrameTime = currentTime - (deltaTime % frameInterval);
+
       setDisplayText(
         text
           .split('')
