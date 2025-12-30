@@ -4,26 +4,46 @@ import { useEffect, useState } from 'react';
 
 // ASCII art for console
 const ASCII_LOGO = `
-%c
  ██╗██████╗ ██╗   ██╗██╗██╗     ██████╗ ██████╗ ██╗   ██╗███╗   ██╗
  ██║██╔══██╗██║   ██║██║██║     ██╔══██╗██╔══██╗██║   ██║████╗  ██║
  ██║██████╔╝██║   ██║██║██║     ██║  ██║██████╔╝██║   ██║██╔██╗ ██║
  ██║██╔══██╗██║   ██║██║██║     ██║  ██║██╔══██╗██║   ██║██║╚██╗██║
  ██║██████╔╝╚██████╔╝██║███████╗██████╔╝██║  ██║╚██████╔╝██║ ╚████║
  ╚═╝╚═════╝  ╚═════╝ ╚═╝╚══════╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+                                                                   
+ Full-Stack Developer & Software Architect                         
+ ─────────────────────────────────────────────────────────────────
 `;
 
 const WELCOME_MESSAGE = `
-%c[SYSTEM] %cWelcome, curious developer.
-
-%c> You found the console. Nice.
-> Looking for vulnerabilities? Good luck.
-> This is a static site. No backend to hack.
-> But since you're here...
-
-%c[TIP] %cType %cibuildrun.hack()%c in console for a surprise.
-
-%c[CONTACT] %chttps://t.me/ibuildrun
+ [SYSTEM] Welcome, curious developer.
+ 
+ You found the console. Nice.
+ Looking for vulnerabilities? Good luck - this is a static site.
+ No backend, no database, no API to hack.
+ 
+ ─────────────────────────────────────────────────────────────────
+ 
+ [ABOUT]
+ > Name: ibuildrun
+ > Role: Full-Stack Developer & Software Architect
+ > Stack: Next.js, React, TypeScript, .NET, Python
+ > Focus: AI-augmented development, scalable systems
+ 
+ [LINKS]
+ > GitHub:   https://github.com/ibuildrun
+ > Telegram: https://t.me/ibuildrun
+ > Website:  https://ibuildrun.ru
+ 
+ [CONSOLE COMMANDS]
+ > ibuildrun.hack()   - Try to hack this site
+ > ibuildrun.matrix() - Enter the matrix
+ > ibuildrun.whoami() - Get your browser info
+ > ibuildrun.source() - View source code on GitHub
+ > ibuildrun.hire()   - Contact me on Telegram
+ > ibuildrun.help()   - Show all commands
+ 
+ ─────────────────────────────────────────────────────────────────
 `;
 
 // Detect headless browsers / bots
@@ -69,31 +89,17 @@ export default function SecurityFeatures() {
   const [breachText, setBreachText] = useState('');
 
   useEffect(() => {
-    // Console easter egg (no clear - blocked when "Preserve log" is on)
-    console.log(
-      ASCII_LOGO,
-      'color: #00ff00; font-family: monospace; font-size: 10px;'
-    );
-    console.log(
-      WELCOME_MESSAGE,
-      'color: #ff0000; font-weight: bold;',
-      'color: #ffffff;',
-      'color: #888888;',
-      'color: #ffff00; font-weight: bold;',
-      'color: #ffffff;',
-      'color: #00ff00; font-weight: bold;',
-      'color: #ffffff;',
-      'color: #00ffff; font-weight: bold;',
-      'color: #00ffff;'
-    );
+    // Console easter egg - monochrome style
+    const style = 'font-family: monospace; font-size: 11px; line-height: 1.2;';
+    console.log('%c' + ASCII_LOGO, style);
+    console.log('%c' + WELCOME_MESSAGE, style);
 
     // Bot detection
     const isBot = detectHeadlessBrowser();
     const canvasAnomaly = detectCanvasAnomaly();
     
     if (isBot || canvasAnomaly) {
-      console.log('%c[BOT DETECTED]', 'color: #ff0000; font-size: 20px;');
-      console.log('%c> Automated browser detected. Nice try.', 'color: #888888;');
+      console.log('[BOT DETECTED] Automated browser detected. Nice try.');
     }
 
     // Security breach animation function
@@ -103,23 +109,26 @@ export default function SecurityFeatures() {
       setTimeout(() => setShowBreach(false), 3000);
     };
 
+    // Monochrome style for all console outputs
+    const mono = 'font-family: monospace;';
+
     // Add hack function to window
     (window as any).ibuildrun = {
       hack: () => {
         triggerBreach('INTRUSION ATTEMPT DETECTED');
-        console.log('%c[INITIATING HACK SEQUENCE...]', 'color: #ff0000; font-size: 14px;');
-        setTimeout(() => console.log('%c[*] Scanning ports...', 'color: #00ff00;'), 500);
-        setTimeout(() => console.log('%c[*] Found open port: 443', 'color: #00ff00;'), 1000);
-        setTimeout(() => console.log('%c[*] Attempting SQL injection...', 'color: #00ff00;'), 1500);
-        setTimeout(() => console.log('%c[!] No database found (static site lol)', 'color: #ffff00;'), 2000);
-        setTimeout(() => console.log('%c[*] Trying XSS attack...', 'color: #00ff00;'), 2500);
-        setTimeout(() => console.log('%c[!] CSP blocked the attempt', 'color: #ffff00;'), 3000);
-        setTimeout(() => console.log('%c[*] Brute forcing admin panel...', 'color: #00ff00;'), 3500);
-        setTimeout(() => console.log('%c[!] No admin panel exists', 'color: #ffff00;'), 4000);
+        console.log('%c[INITIATING HACK SEQUENCE...]', mono);
+        setTimeout(() => console.log('[*] Scanning ports...'), 500);
+        setTimeout(() => console.log('[*] Found open port: 443'), 1000);
+        setTimeout(() => console.log('[*] Attempting SQL injection...'), 1500);
+        setTimeout(() => console.log('[!] No database found (static site)'), 2000);
+        setTimeout(() => console.log('[*] Trying XSS attack...'), 2500);
+        setTimeout(() => console.log('[!] CSP blocked the attempt'), 3000);
+        setTimeout(() => console.log('[*] Brute forcing admin panel...'), 3500);
+        setTimeout(() => console.log('[!] No admin panel exists'), 4000);
         setTimeout(() => {
-          console.log('%c[HACK FAILED]', 'color: #ff0000; font-size: 16px; font-weight: bold;');
-          console.log('%c> Nice try. Maybe hire me instead?', 'color: #00ffff;');
-          console.log('%c> https://t.me/ibuildrun', 'color: #00ffff;');
+          console.log('[HACK FAILED]');
+          console.log('> Nice try. Maybe hire me instead?');
+          console.log('> https://t.me/ibuildrun');
         }, 4500);
         return '[HACK IN PROGRESS...]';
       },
@@ -133,22 +142,24 @@ export default function SecurityFeatures() {
           }
           output += line + '\n';
         }
-        console.log('%c' + output, 'color: #00ff00; font-family: monospace; font-size: 8px; line-height: 8px;');
+        console.log('%c' + output, 'font-family: monospace; font-size: 8px; line-height: 8px;');
         return '[MATRIX ACTIVATED]';
       },
       whoami: () => {
-        console.log('%c[USER INFO]', 'color: #00ffff; font-weight: bold;');
-        console.log('> Platform:', navigator.platform);
+        console.log('[USER INFO]');
+        console.log('> User Agent:', navigator.userAgent);
         console.log('> Language:', navigator.language);
         console.log('> Cookies:', navigator.cookieEnabled ? 'enabled' : 'disabled');
         console.log('> Online:', navigator.onLine ? 'yes' : 'no');
         console.log('> Screen:', `${screen.width}x${screen.height}`);
+        console.log('> Color Depth:', screen.colorDepth);
+        console.log('> Timezone:', Intl.DateTimeFormat().resolvedOptions().timeZone);
         console.log('> Bot detected:', isBot ? 'YES' : 'no');
         console.log('> Canvas anomaly:', canvasAnomaly ? 'YES' : 'no');
         return '[DATA COLLECTED]';
       },
       help: () => {
-        console.log('%c[AVAILABLE COMMANDS]', 'color: #00ffff; font-weight: bold;');
+        console.log('[AVAILABLE COMMANDS]');
         console.log('> ibuildrun.hack()   - Try to hack this site');
         console.log('> ibuildrun.matrix() - Enter the matrix');
         console.log('> ibuildrun.whoami() - Get your info');
@@ -171,27 +182,9 @@ export default function SecurityFeatures() {
       }
     };
 
-    // DevTools detection - more reliable method using debugger timing
+    // DevTools detection - check window size difference
     let devToolsAlerted = false;
-    
-    const detectDevTools = () => {
-      if (devToolsAlerted) return;
-      
-      const start = performance.now();
-      // debugger statement takes longer when DevTools is open
-      // eslint-disable-next-line no-debugger
-      debugger;
-      const end = performance.now();
-      
-      if (end - start > 100) {
-        devToolsAlerted = true;
-        console.log('%c[DEVTOOLS DETECTED]', 'color: #ff0000; font-size: 14px; font-weight: bold;');
-        console.log('%c> I see you opened DevTools. Curious one, aren\'t you?', 'color: #888888;');
-        console.log('%c> Type ibuildrun.help() for available commands.', 'color: #00ff00;');
-      }
-    };
 
-    // Also check window size difference (fallback)
     const checkWindowSize = () => {
       if (devToolsAlerted) return;
       
@@ -201,9 +194,9 @@ export default function SecurityFeatures() {
       
       if (widthDiff || heightDiff) {
         devToolsAlerted = true;
-        console.log('%c[DEVTOOLS DETECTED]', 'color: #ff0000; font-size: 14px; font-weight: bold;');
-        console.log('%c> I see you opened DevTools. Curious one, aren\'t you?', 'color: #888888;');
-        console.log('%c> Type ibuildrun.help() for available commands.', 'color: #00ff00;');
+        console.log('[DEVTOOLS DETECTED]');
+        console.log('> I see you opened DevTools. Curious one, aren\'t you?');
+        console.log('> Type ibuildrun.help() for available commands.');
       }
     };
 
@@ -221,8 +214,7 @@ export default function SecurityFeatures() {
         const watermark = `\n\n---\nCopied from ibuildrun.ru | https://t.me/ibuildrun\n---`;
         const text = selection.toString() + watermark;
         e.clipboardData?.setData('text/plain', text);
-        console.log('%c[COPY DETECTED]', 'color: #ffff00;');
-        console.log('%c> Watermark added to clipboard.', 'color: #888888;');
+        console.log('[COPY DETECTED] Watermark added to clipboard.');
       }
     };
 
@@ -232,17 +224,17 @@ export default function SecurityFeatures() {
     const handleKeydown = (e: KeyboardEvent) => {
       // F12
       if (e.key === 'F12') {
-        console.log('%c[F12 PRESSED]', 'color: #ffff00;');
+        console.log('[F12 PRESSED]');
       }
       // Ctrl+Shift+I
       if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-        console.log('%c[DEVTOOLS SHORTCUT]', 'color: #ffff00;');
+        console.log('[DEVTOOLS SHORTCUT]');
       }
       // Ctrl+U (view source)
       if (e.ctrlKey && e.key === 'u') {
-        console.log('%c[VIEW SOURCE]', 'color: #ffff00;');
-        console.log('%c> Looking at the source? Check GitHub instead:', 'color: #888888;');
-        console.log('%c> https://github.com/ibuildrun/ibuildrun', 'color: #00ffff;');
+        console.log('[VIEW SOURCE]');
+        console.log('> Looking at the source? Check GitHub instead:');
+        console.log('> https://github.com/ibuildrun/ibuildrun');
       }
     };
 
