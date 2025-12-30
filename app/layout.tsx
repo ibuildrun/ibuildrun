@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import SecurityFeatures from '@/components/SecurityFeatures';
 
 const BASE_URL = 'https://ibuildrun.ru';
 
@@ -151,6 +152,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-mono" suppressHydrationWarning>
+        <SecurityFeatures />
         {children}
         <div className="scanline" />
         <div className="noise" />
