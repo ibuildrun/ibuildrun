@@ -1,0 +1,52 @@
+name: Deploy to Hosting
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Report build size
+        run: |
+          echo "=== Build Size Report ==="
+          du -sh out/
+          echo ""
+          echo "=== File count ==="
+          find out/ -type f | wc -l
+          echo ""
+          echo "=== Largest files ==="
+          find out/ -type f -exec du -h {} + | sort -rh | head -10
+
+      - name: Deploy via rsync
+        uses: burnett01/rsync-deployments@7.0.1
+        with:
+          switches: -avzr --delete --exclude='.htaccess'
+          path: out/
+          remote_path: ~/www/ibuildrun.ru/
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_user: ${{ secrets.SSH_USER }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Verify deployment
+        run: |
+          echo "=== Deployment completed ==="
+          echo "Site should be available at: https://ibuildrun.ru"

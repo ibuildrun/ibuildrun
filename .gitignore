@@ -36,5 +36,9 @@ css-obfuscator/
 # Kiro
 .kiro/
 
+# SSH Deploy Keys (NEVER commit these!)
+deploy_key
+deploy_key.pub
+
 # Original Vite project (for local comparison only)
 ibuildrun-_-ai-augmented-developer-portfolio/
