@@ -26,6 +26,18 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
     };
   }, [selectedProject]);
 
+  // Close modal on ESC key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && selectedProject) {
+        setSelectedProject(null);
+      }
+    };
+    
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [selectedProject]);
+
   return (
     <section id="projects" className="min-h-screen py-24 md:py-48 px-4 md:px-24 z-10 relative border-t" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)' }}>
       <div className="max-w-7xl mx-auto">
@@ -80,7 +92,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
       <AnimatePresence>
         {selectedProject && (
           <div 
-            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-12"
+            className="fixed inset-0 z-[10000] flex items-center justify-center p-4 md:p-12"
             onClick={() => setSelectedProject(null)}
           >
             <motion.div 

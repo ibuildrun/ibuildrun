@@ -160,7 +160,7 @@ const MainContent: React.FC = () => {
 
   // Smooth scroll for anchor links
   useEffect(() => {
-    const smoothScrollTo = (targetY: number, duration: number = 800) => {
+    const smoothScrollTo = (targetY: number, duration: number = 400) => {
       const startY = window.scrollY;
       const difference = targetY - startY;
       const startTime = performance.now();
