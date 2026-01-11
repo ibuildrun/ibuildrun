@@ -70,12 +70,12 @@ const GithubHeartbeat: React.FC<GithubHeartbeatProps> = ({ lang }) => {
               />
             </div>
             <div>
-              <div className="text-[10px] uppercase tracking-[0.4em] font-bold" style={{ color: 'var(--muted)' }}>{t.heartbeat.subtitle}</div>
+              <div className="text-[12px] uppercase tracking-[0.4em] font-bold" style={{ color: 'var(--muted)' }}>{t.heartbeat.subtitle}</div>
               <h2 className="text-3xl font-bold uppercase tracking-tighter">{t.heartbeat.title}</h2>
             </div>
           </div>
           
-          <div className="px-6 py-2 border-2 text-[9px] font-bold uppercase tracking-[0.4em] flex items-center gap-3" style={{ borderColor: 'var(--border)' }}>
+          <div className="px-6 py-2 border-2 text-[11px] font-bold uppercase tracking-[0.4em] flex items-center gap-3" style={{ borderColor: 'var(--border)' }}>
             <div className={`w-2 h-2 rounded-full ${error ? 'bg-red-500' : 'bg-green-500 animate-pulse'}`} />
             {error ? t.heartbeat.offline : t.heartbeat.status}
           </div>
@@ -85,7 +85,7 @@ const GithubHeartbeat: React.FC<GithubHeartbeatProps> = ({ lang }) => {
           <AnimatePresence mode="popLayout">
             {loading ? (
               <div className="p-20 text-center bg-[var(--bg)]">
-                <span className="text-[10px] uppercase tracking-[1em] animate-pulse">{t.heartbeat.loading}</span>
+                <span className="text-[12px] uppercase tracking-[1em] animate-pulse">{t.heartbeat.loading}</span>
               </div>
             ) : error ? (
               <div className="p-20 text-center bg-[var(--bg)] opacity-40 italic">
@@ -102,11 +102,11 @@ const GithubHeartbeat: React.FC<GithubHeartbeatProps> = ({ lang }) => {
                   style={{ backgroundColor: 'var(--bg)', color: 'var(--fg)' }}
                 >
                   <div className="flex items-center gap-8 flex-1">
-                    <span className="text-[10px] opacity-30 font-bold font-mono">[{commit.hash}]</span>
+                    <span className="text-[12px] opacity-30 font-bold font-mono">[{commit.hash}]</span>
                     <div className="flex flex-col">
                       <div className="flex items-center gap-2 mb-2">
                         <GitBranch size={12} className="opacity-40" />
-                        <span className="text-[9px] font-bold uppercase tracking-widest text-[var(--accent)]">{commit.repo}</span>
+                        <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--accent)]">{commit.repo}</span>
                       </div>
                       <div className="text-sm md:text-lg font-bold uppercase tracking-tight max-w-xl group-hover:scale-105 transition-transform origin-left">
                         <ScrambleText text={commit.message} />
@@ -114,7 +114,7 @@ const GithubHeartbeat: React.FC<GithubHeartbeatProps> = ({ lang }) => {
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-3 opacity-40 text-[10px] font-bold">
+                  <div className="flex items-center gap-3 opacity-40 text-[12px] font-bold">
                     <Clock size={12} />
                     <span>{commit.time}</span>
                   </div>

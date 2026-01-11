@@ -22,7 +22,7 @@ const Philosophy: React.FC<PhilosophyProps> = ({ lang }) => {
     <section id="manifesto" className="min-h-screen py-24 md:py-48 px-6 md:px-24 flex items-center z-10 relative border-t" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)' }}>
       <div className="grid lg:grid-cols-2 gap-12 md:gap-24 items-center max-w-[1400px] mx-auto">
         <div className="space-y-8 md:space-y-12 order-2 lg:order-1">
-          <div className="text-[9px] md:text-[10px] uppercase tracking-[0.8em] md:tracking-[1em] mb-4 md:mb-8 font-bold" style={{ color: 'var(--muted)' }}>{t.philosophy.log}</div>
+          <div className="text-[11px] md:text-[12px] uppercase tracking-[0.8em] md:tracking-[1em] mb-4 md:mb-8 font-bold" style={{ color: 'var(--muted)' }}>{t.philosophy.log}</div>
           <h2 className="text-3xl sm:text-5xl md:text-8xl font-bold leading-[1.1] md:leading-[0.9] tracking-tighter uppercase" style={{ color: 'var(--fg)' }}>
             <span className="whitespace-pre-line">{t.philosophy.title}</span>
             <span style={{ color: 'var(--muted)', opacity: 0.6 }}>{t.philosophy.subtitle}</span>
@@ -46,11 +46,11 @@ const Philosophy: React.FC<PhilosophyProps> = ({ lang }) => {
               >
                 <div className="flex justify-between items-center">
                   <span className="text-lg md:text-xl font-bold uppercase tracking-[0.3em]">{tool.name}</span>
-                  <span className={`text-[8px] md:text-[9px] font-bold tracking-widest ${isHovered === tool.name ? '' : 'text-green-600 animate-pulse'}`}>
+                  <span className={`text-[10px] md:text-[11px] font-bold tracking-widest ${isHovered === tool.name ? '' : 'text-green-600 animate-pulse'}`}>
                     ACTIVE
                   </span>
                 </div>
-                <p className={`mt-2 md:mt-4 text-[9px] md:text-[10px] uppercase tracking-widest font-bold`} style={{ opacity: isHovered === tool.name ? 1 : 0.6 }}>
+                <p className={`mt-2 md:mt-4 text-[11px] md:text-[12px] uppercase tracking-widest font-bold`} style={{ opacity: isHovered === tool.name ? 1 : 0.6 }}>
                   {tool.desc}
                 </p>
               </motion.div>
@@ -64,13 +64,13 @@ const Philosophy: React.FC<PhilosophyProps> = ({ lang }) => {
           <div className="absolute inset-20 border-2 rounded-full animate-spin-slow" style={{ borderColor: 'var(--border)', opacity: 0.7 }}></div>
           
           <div className="z-10 text-center backdrop-blur-md p-6 md:p-10 border-2 shadow-2xl" style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--fg)' }}>
-            <div className="text-[9px] md:text-[10px] font-bold mb-3 md:mb-4 uppercase tracking-[0.4em] md:tracking-[0.6em]" style={{ color: 'var(--muted)' }}>{t.philosophy.symbiosis}</div>
+            <div className="text-[11px] md:text-[12px] font-bold mb-3 md:mb-4 uppercase tracking-[0.4em] md:tracking-[0.6em]" style={{ color: 'var(--muted)' }}>{t.philosophy.symbiosis}</div>
             <div className="flex items-center gap-4 md:gap-8 text-2xl md:text-4xl font-bold tracking-tighter uppercase">
               <span style={{ opacity: 0.5 }}>{lang === 'ru' ? 'ЧЕЛОВЕК' : 'HUMAN'}</span>
               <div className="w-8 md:w-12 h-px" style={{ backgroundColor: 'var(--muted)' }}></div>
               <span className="animate-pulse" style={{ color: 'var(--accent)' }}>A.I.</span>
             </div>
-            <div className="mt-4 md:mt-6 text-[7px] md:text-[8px] uppercase tracking-[0.8em] md:tracking-[1em]" style={{ color: 'var(--muted)' }}>{t.philosophy.handshake}</div>
+            <div className="mt-4 md:mt-6 text-[10px] md:text-[11px] uppercase tracking-[0.8em] md:tracking-[1em]" style={{ color: 'var(--muted)' }}>{t.philosophy.handshake}</div>
           </div>
         </div>
       </div>

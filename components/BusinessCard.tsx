@@ -32,7 +32,7 @@ const BusinessCard: React.FC<BusinessCardProps> = ({ lang }) => {
           <div className="flex justify-between items-start">
             <div className="text-white">
               <div className="text-3xl font-bold tracking-tighter uppercase mb-1">IBUILDRUN</div>
-              <div className="text-[8px] text-white/30 uppercase tracking-[0.6em]">Core_Software_Layer</div>
+              <div className="text-[10px] text-white/30 uppercase tracking-[0.6em]">Core_Software_Layer</div>
             </div>
             <div className="w-10 h-10 border border-white/20 flex items-center justify-center bg-white/5">
               <div className="w-2 h-2 bg-white animate-pulse" />
@@ -42,8 +42,8 @@ const BusinessCard: React.FC<BusinessCardProps> = ({ lang }) => {
           <div className="space-y-4">
             <div className="h-[2px] w-12 bg-white" />
             <div className="text-white">
-              <div className="text-[11px] font-bold uppercase tracking-[0.4em] mb-1">Lead_Software_Engineer</div>
-              <div className="text-[9px] text-white/20 uppercase tracking-widest">ID_HASH: 0x9924-IBR-001</div>
+              <div className="text-[13px] font-bold uppercase tracking-[0.4em] mb-1">Lead_Software_Engineer</div>
+              <div className="text-[11px] text-white/20 uppercase tracking-widest">ID_HASH: 0x9924-IBR-001</div>
             </div>
           </div>
         </div>
@@ -52,18 +52,18 @@ const BusinessCard: React.FC<BusinessCardProps> = ({ lang }) => {
           <div className="space-y-4 md:space-y-6 relative z-10">
             <div className="flex items-center gap-4 md:gap-6 border-b border-black pb-3 md:pb-4">
               <Send size={16} className="opacity-80 flex-shrink-0" />
-              <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] md:tracking-[0.3em]">T.ME/IBUILDRUN</span>
+              <span className="text-[11px] md:text-[12px] font-bold tracking-[0.2em] md:tracking-[0.3em]">T.ME/IBUILDRUN</span>
             </div>
             <div className="flex items-center gap-4 md:gap-6 border-b border-black pb-3 md:pb-4">
               <Github size={16} className="opacity-80 flex-shrink-0" />
-              <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] md:tracking-[0.3em]">GITHUB.COM/IBUILDRUN</span>
+              <span className="text-[11px] md:text-[12px] font-bold tracking-[0.2em] md:tracking-[0.3em]">GITHUB.COM/IBUILDRUN</span>
             </div>
           </div>
           
           <div className="flex justify-between items-end relative z-10">
             <div>
-              <div className="text-[8px] md:text-[9px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] mb-1">System_Status: ACTIVE</div>
-              <div className="text-[7px] md:text-[8px] opacity-80 font-bold tracking-widest uppercase">{lang === 'ru' ? 'ВРЕМЯ_UTC' : 'EST_UTC'}: 2025.Q1</div>
+              <div className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] mb-1">System_Status: ACTIVE</div>
+              <div className="text-[9px] md:text-[10px] opacity-80 font-bold tracking-widest uppercase">{lang === 'ru' ? 'ВРЕМЯ_UTC' : 'EST_UTC'}: 2025.Q1</div>
             </div>
             <div className="w-10 h-10 md:w-12 md:h-12 bg-black flex items-center justify-center">
               <Globe size={20} className="text-white animate-spin-slow md:w-6 md:h-6" />
@@ -72,7 +72,7 @@ const BusinessCard: React.FC<BusinessCardProps> = ({ lang }) => {
         </div>
       </motion.div>
       
-      <div className="mt-6 md:mt-10 text-center text-[8px] md:text-[9px] font-bold uppercase tracking-[0.6em] md:tracking-[0.8em] animate-pulse" style={{ color: 'var(--muted)' }}>
+      <div className="mt-6 md:mt-10 text-center text-[10px] md:text-[11px] font-bold uppercase tracking-[0.6em] md:tracking-[0.8em] animate-pulse" style={{ color: 'var(--muted)' }}>
         {isFlipped ? 'CLOSE_ENVELOPE()' : 'ACCESS_ID_CARD()'}
       </div>
     </div>

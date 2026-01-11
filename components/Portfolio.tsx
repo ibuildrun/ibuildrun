@@ -42,7 +42,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
     <section id="projects" className="min-h-screen py-24 md:py-48 px-4 md:px-24 z-10 relative border-t" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)' }}>
       <div className="max-w-7xl mx-auto">
         <div className="mb-16 md:mb-24">
-          <div className="text-[9px] md:text-[10px] uppercase tracking-[0.4em] md:tracking-[0.6em] mb-4 font-bold" style={{ color: 'var(--muted)' }}>{t.portfolio.storage}</div>
+          <div className="text-[11px] md:text-[12px] uppercase tracking-[0.4em] md:tracking-[0.6em] mb-4 font-bold" style={{ color: 'var(--muted)' }}>{t.portfolio.storage}</div>
           <h2 className="text-4xl sm:text-6xl md:text-9xl font-bold tracking-tighter uppercase leading-[0.9] md:leading-none" style={{ color: 'var(--fg)' }}>
             {t.portfolio.title}<br/>
             <span style={{ color: 'var(--muted)' }}>{t.portfolio.subtitle}</span>
@@ -60,8 +60,8 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
             >
               <div className="relative z-10">
                 <div className="flex justify-between items-start mb-4 md:mb-6">
-                  <span className="text-[9px] md:text-[10px] font-mono tracking-[0.3em] md:tracking-[0.5em] opacity-60 uppercase font-bold">{project.category[lang]}</span>
-                  <span className="text-[9px] md:text-[10px] font-mono opacity-60 tracking-widest font-bold">{project.year}</span>
+                  <span className="text-[11px] md:text-[12px] font-mono tracking-[0.3em] md:tracking-[0.5em] opacity-60 uppercase font-bold">{project.category[lang]}</span>
+                  <span className="text-[11px] md:text-[12px] font-mono opacity-60 tracking-widest font-bold">{project.year}</span>
                 </div>
                 <h3 className="text-2xl md:text-4xl font-bold tracking-tighter uppercase transition-colors break-words">
                   {project.title}
@@ -69,12 +69,12 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
               </div>
 
               <div className="relative z-10 space-y-4 md:space-y-6">
-                <p className="text-[10px] md:text-sm opacity-60 group-hover:opacity-100 transition-opacity uppercase tracking-tight leading-relaxed font-bold line-clamp-3 md:line-clamp-none">
+                <p className="text-[12px] md:text-sm opacity-60 group-hover:opacity-100 transition-opacity uppercase tracking-tight leading-relaxed font-bold line-clamp-3 md:line-clamp-none">
                   {project.description[lang]}
                 </p>
                 <div className="flex flex-wrap gap-2 md:gap-3">
                   {project.stack.slice(0, 3).map(s => (
-                    <span key={s} className="text-[8px] md:text-[9px] border px-2 md:px-3 py-1 font-mono opacity-80 font-bold tracking-widest" style={{ borderColor: 'var(--border)' }}>
+                    <span key={s} className="text-[10px] md:text-[11px] border px-2 md:px-3 py-1 font-mono opacity-80 font-bold tracking-widest" style={{ borderColor: 'var(--border)' }}>
                       {s}
                     </span>
                   ))}
@@ -122,7 +122,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
                 {/* Title */}
                 <div className="space-y-4 pr-12">
                   <h2 className="text-4xl md:text-7xl font-bold tracking-tighter uppercase leading-none break-words">{selectedProject.title}</h2>
-                  <div className="flex flex-wrap gap-4 text-[9px] md:text-[10px] font-mono opacity-60 uppercase tracking-[0.3em] font-bold">
+                  <div className="flex flex-wrap gap-4 text-[11px] md:text-[12px] font-mono opacity-60 uppercase tracking-[0.3em] font-bold">
                     <span>{selectedProject.category[lang]}</span>
                     <span>/</span>
                     <span>{selectedProject.year}</span>
@@ -134,17 +134,17 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
                 {/* Content */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                   <div className="md:col-span-2 space-y-4">
-                    <h4 className="text-[9px] md:text-[10px] font-mono uppercase opacity-40 tracking-[0.4em] border-l-4 border-black pl-4 font-bold">{t.portfolio.case_study}</h4>
+                    <h4 className="text-[11px] md:text-[12px] font-mono uppercase opacity-40 tracking-[0.4em] border-l-4 border-black pl-4 font-bold">{t.portfolio.case_study}</h4>
                     <p className="text-sm md:text-lg leading-relaxed uppercase tracking-tight font-bold">
                       {selectedProject.detailedDescription[lang]}
                     </p>
                   </div>
                   <div className="space-y-8">
                     <div className="space-y-4">
-                      <h4 className="text-[9px] md:text-[10px] font-mono uppercase opacity-40 tracking-[0.4em] font-bold">{t.portfolio.dependencies}</h4>
+                      <h4 className="text-[11px] md:text-[12px] font-mono uppercase opacity-40 tracking-[0.4em] font-bold">{t.portfolio.dependencies}</h4>
                       <div className="flex flex-wrap gap-2">
                         {selectedProject.stack.map(s => (
-                          <span key={s} className="px-3 py-1 border-2 border-black text-[9px] md:text-[10px] font-bold uppercase tracking-widest">
+                          <span key={s} className="px-3 py-1 border-2 border-black text-[11px] md:text-[12px] font-bold uppercase tracking-widest">
                             {s}
                           </span>
                         ))}
@@ -152,12 +152,12 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
                     </div>
                     {selectedProject.link && (
                       <div className="space-y-4">
-                        <h4 className="text-[9px] md:text-[10px] font-mono uppercase opacity-40 tracking-[0.4em] font-bold">{t.portfolio.access_point}</h4>
+                        <h4 className="text-[11px] md:text-[12px] font-mono uppercase opacity-40 tracking-[0.4em] font-bold">{t.portfolio.access_point}</h4>
                         <a 
                           href={selectedProject.link} 
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center w-full px-6 py-4 font-bold uppercase text-[9px] md:text-[10px] tracking-[0.4em] bg-black text-white hover:bg-white hover:text-black border-2 border-black transition-all"
+                          className="flex items-center justify-center w-full px-6 py-4 font-bold uppercase text-[11px] md:text-[12px] tracking-[0.4em] bg-black text-white hover:bg-white hover:text-black border-2 border-black transition-all"
                         >
                           {t.portfolio.open_source}
                         </a>

@@ -54,7 +54,7 @@ const DebugOverlay: React.FC = () => {
   if (!mounted) return null;
 
   return (
-    <div className="fixed bottom-8 left-8 z-[150] font-mono text-[9px] uppercase tracking-tighter text-white/20 pointer-events-none hidden lg:block">
+    <div className="fixed bottom-8 left-8 z-[150] font-mono text-[11px] uppercase tracking-tighter text-white/20 pointer-events-none hidden lg:block">
       <div className="flex flex-col gap-1 border-l border-white/10 pl-4">
         <div>LOC_X: {stats.x.toString().padStart(4, '0')}</div>
         <div>LOC_Y: {stats.y.toString().padStart(4, '0')}</div>

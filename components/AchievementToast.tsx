@@ -39,8 +39,8 @@ const AchievementToast: React.FC<AchievementToastProps> = ({ achievement, onClos
             <Award size={20} />
           </div>
           <div>
-            <div className="text-[9px] font-bold uppercase tracking-[0.3em] opacity-40 mb-1">Achievement_Unlocked</div>
-            <div className="text-[11px] font-bold uppercase tracking-[0.1em]">{achievement}</div>
+            <div className="text-[11px] font-bold uppercase tracking-[0.3em] opacity-40 mb-1">Achievement_Unlocked</div>
+            <div className="text-[13px] font-bold uppercase tracking-[0.1em]">{achievement}</div>
           </div>
         </motion.div>
       )}
