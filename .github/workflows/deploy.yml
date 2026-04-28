@@ -37,7 +37,7 @@ jobs:
           find out/ -type f -exec du -h {} + | sort -rh | head -10
 
       - name: Deploy via rsync
-        uses: burnett01/rsync-deployments@7.0.1
+        uses: burnett01/rsync-deployments@8.0.5
         with:
           switches: -avzr --delete --exclude='.htaccess'
           path: out/
