@@ -13,23 +13,23 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "framer-motion": "^12.23.26",
+    "framer-motion": "^12.43.0",
     "lucide-react": "^0.562.0",
     "next": "^15.1.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/eslintrc": "^3.3.6",
     "@types/node": "^22.14.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "autoprefixer": "^10.4.20",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "autoprefixer": "^10.5.4",
     "eslint": "^9.0.0",
     "eslint-config-next": "^15.1.0",
     "husky": "^9.0.0",
-    "next-css-obfuscator": "^3.0.0",
-    "postcss": "^8.4.47",
+    "next-css-obfuscator": "^3.0.1",
+    "postcss": "^8.5.25",
     "tailwindcss": "^3.4.0",
     "typescript": "~5.8.2"
   }
